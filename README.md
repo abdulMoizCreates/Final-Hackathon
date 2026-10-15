@@ -30,7 +30,7 @@ stater-code/
 
 ## Prerequisites
 
-- **Node.js** >= 18
+- **Node.js** >= 20.19
 - **pnpm** (frontend) and **npm** (backend)
 - **MongoDB** running locally or a remote URI
 
@@ -71,7 +71,7 @@ pnpm install
 ### 3. Run the app
 
 ```bash
-# Terminal 1 — Backend (uses nodemon for hot reload)
+# Terminal 1 — Backend (uses Node.js watch mode for hot reload)
 cd backend
 npm run dev
 
