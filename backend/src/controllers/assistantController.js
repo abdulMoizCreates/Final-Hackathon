@@ -33,10 +33,12 @@ function startSse(res) {
 }
 
 function sendEvent(res, payload) {
+  if (res.writableEnded || res.destroyed) return;
   res.write(`data: ${JSON.stringify(payload)}\n\n`);
 }
 
 function endStream(res) {
+  if (res.writableEnded || res.destroyed) return;
   res.write("data: [DONE]\n\n");
   res.end();
 }
@@ -100,7 +102,7 @@ export async function chat(req, res) {
     const stream = await startStream(client, history);
 
     for await (const chunk of stream) {
-      if (res.writableEnded) break; // visitor closed the widget mid-stream
+      if (res.writableEnded || res.destroyed) break; // visitor closed the widget mid-stream
       const delta = chunk.text;
       if (delta) {
         replyText += delta;
@@ -112,6 +114,9 @@ export async function chat(req, res) {
       history.push({ role: "model", parts: [{ text: replyText }] });
     }
   } catch (error) {
+    if (!replyText) {
+      history.pop();
+    }
     console.error("Gemini API error:", error.message);
     sendEvent(res, {
       error:
@@ -120,7 +125,7 @@ export async function chat(req, res) {
           : "The AI service failed to respond. Please try again.",
     });
   } finally {
-    if (!res.writableEnded) endStream(res);
+    if (!res.writableEnded && !res.destroyed) endStream(res);
   }
 }
 
