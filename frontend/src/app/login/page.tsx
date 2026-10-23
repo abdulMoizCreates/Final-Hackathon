@@ -76,6 +76,22 @@ export default function LoginPage() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-900 dark:bg-blue-900/20">
+          <p className="font-medium">Demo account</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            demo@hackathon.com / demo1234
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setEmail("demo@hackathon.com");
+              setPassword("demo1234");
+            }}
+            className="mt-1 text-blue-600 hover:underline"
+          >
+            Fill demo account →
+          </button>
+        </div>
         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
           Don&apos;t have an account?{" "}
           <Link href="/register" className="text-blue-600 hover:underline">
