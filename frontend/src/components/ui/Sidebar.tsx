@@ -2,45 +2,44 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useAuth, UserRole } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import {
-  LayoutDashboard, Users, CalendarCheck, CalendarDays, Wallet,
-  Building2, UserCog, Megaphone, ScrollText, FileText,
-  Menu, X, LogOut, ShieldCheck
+  LayoutDashboard,
+  Users,
+  Clock,
+  Briefcase,
+  BadgeDollarSign,
+  BarChart2,
+  Sparkles,
+  Megaphone,
+  Settings,
+  LogOut,
+  ChevronDown,
+  Menu,
+  X
 } from "lucide-react";
-
-interface NavItem {
-  href: string;
-  label: string;
-  icon: React.ReactNode;
-  roles: string[];
-}
-
-const iconSize = 17;
-
-const navItems: NavItem[] = [
-  { href: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={iconSize} />, roles: ["Admin", "HR", "Employee"] },
-  { href: "/employees", label: "Employees", icon: <Users size={iconSize} />, roles: ["Admin", "HR"] },
-  { href: "/attendance", label: "Attendance", icon: <CalendarCheck size={iconSize} />, roles: ["Admin", "HR", "Employee"] },
-  { href: "/leave", label: "Leave", icon: <CalendarDays size={iconSize} />, roles: ["Admin", "HR", "Employee"] },
-  { href: "/payroll", label: "Payroll", icon: <Wallet size={iconSize} />, roles: ["Admin", "HR"] },
-  { href: "/payslips", label: "Payslips", icon: <FileText size={iconSize} />, roles: ["Employee"] },
-  { href: "/organization", label: "Organization", icon: <Building2 size={iconSize} />, roles: ["Admin", "HR"] },
-  { href: "/users", label: "Users", icon: <UserCog size={iconSize} />, roles: ["Admin"] },
-  { href: "/announcements", label: "Announcements", icon: <Megaphone size={iconSize} />, roles: ["Admin", "HR", "Employee"] },
-  { href: "/audit-log", label: "Audit log", icon: <ScrollText size={iconSize} />, roles: ["Admin"] },
-];
 
 export default function Sidebar() {
   const { user, role, switchRole, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [roleMenuOpen, setRoleMenuOpen] = useState(false);
 
   if (!user) return null;
 
-  const filtered = navItems.filter((item) => item.roles.includes(role));
+  const navItems = [
+    { href: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
+    { href: "/employees", label: "Employees", icon: <Users size={18} /> },
+    { href: "/attendance", label: "Attendance", icon: <Clock size={18} /> },
+    { href: "/leave", label: "Leave", icon: <Briefcase size={18} /> },
+    { href: "/payroll", label: "Payroll", icon: <BadgeDollarSign size={18} /> },
+    { href: "/analytics", label: "Analytics", icon: <BarChart2 size={18} /> },
+    { href: "/assistant", label: "AI Assistant", icon: <Sparkles size={18} /> },
+    { href: "/announcements", label: "Announcements", icon: <Megaphone size={18} /> },
+    { href: "/organization", label: "Settings", icon: <Settings size={18} /> },
+  ];
 
   const handleLogout = async () => {
     await logout();
@@ -48,80 +47,38 @@ export default function Sidebar() {
   };
 
   const navContent = (
-    <div className="flex flex-col h-full font-sans">
+    <div className="flex flex-col h-full bg-[#0B181A] text-slate-200 font-sans select-none">
       {/* Brand Header */}
-      <div className="px-6 py-6 flex items-center justify-between">
-        <Link href="/dashboard" className="flex items-center gap-2.5 group">
-          <div
-            className="w-8 h-8 rounded-xl flex items-center justify-center shadow-sm"
-            style={{ background: "#0F4C45" }}
-          >
-            <div className="w-4 h-0.5 rounded bg-white relative">
-              <div
-                className="absolute w-2 h-2 rounded-full -top-[3px] left-1"
-                style={{ background: "#F2B01E" }}
-              />
-            </div>
-          </div>
-          <div>
-            <span className="text-base font-bold tracking-tight block leading-tight" style={{ color: "var(--sidebar-ink)" }}>
-              HCM Lite
-            </span>
-            <span className="text-[10px] tracking-wider uppercase opacity-60 font-mono block" style={{ color: "var(--sidebar-ink)" }}>
-              Enterprise HR
-            </span>
-          </div>
-        </Link>
-      </div>
-
-      {/* Role Switcher Pill Bar (Functional RBAC) */}
-      <div className="px-4 mb-4">
-        <div className="p-1 rounded-xl shadow-soft" style={{ background: "rgba(255,255,255,0.06)" }}>
-          <div className="flex items-center justify-between px-2 py-1 text-[10px] uppercase font-semibold tracking-wider opacity-60" style={{ color: "var(--sidebar-ink)" }}>
-            <span className="flex items-center gap-1"><ShieldCheck size={12} /> Active Role</span>
-            <span className="font-mono">{role}</span>
-          </div>
-          <div className="grid grid-cols-3 gap-1 pt-1">
-            {(["Admin", "HR", "Employee"] as UserRole[]).map((r) => (
-              <button
-                key={r}
-                type="button"
-                onClick={() => switchRole(r)}
-                className={`py-1.5 text-xs font-medium rounded-lg transition-all ${
-                  role === r
-                    ? "font-semibold shadow-sm"
-                    : "opacity-60 hover:opacity-100"
-                }`}
-                style={{
-                  background: role === r ? "#183731" : "transparent",
-                  color: role === r ? "#FFFFFF" : "var(--sidebar-ink-2)",
-                }}
-              >
-                {r === "Employee" ? "Staff" : r}
-              </button>
-            ))}
-          </div>
+      <div className="px-6 py-6 flex items-center gap-3">
+        {/* Hexagonal Teal Logo from Mockup */}
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-teal-500/20">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L3 7V17L12 22L21 17V7L12 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 12L21 7M12 12V22M12 12L3 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <span className="text-base font-bold text-white tracking-tight block leading-tight">HCM Lite</span>
+          <span className="text-[11px] font-medium text-teal-400 block tracking-wide">AI-Powered HR</span>
         </div>
       </div>
 
-      {/* Main Nav Items */}
+      {/* Nav List */}
       <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
-        {filtered.map((item) => {
+        {navItems.map((item) => {
           const isActive = pathname === item.href || (pathname?.startsWith(item.href + "/") && item.href !== "/dashboard");
           return (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
-                isActive ? "shadow-sm font-semibold" : "hover:bg-white/5"
+              className={`flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                isActive
+                  ? "bg-[#114444] text-white shadow-sm shadow-teal-950 font-semibold"
+                  : "text-slate-400 hover:text-white hover:bg-white/5"
               }`}
-              style={{
-                background: isActive ? "var(--sidebar-active)" : "transparent",
-                color: isActive ? "#FFFFFF" : "var(--sidebar-ink-2)",
-              }}
             >
-              <span className={isActive ? "text-[#38B298]" : "opacity-75"}>
+              <span className={isActive ? "text-teal-300" : "text-slate-400"}>
                 {item.icon}
               </span>
               <span>{item.label}</span>
@@ -130,79 +87,105 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* User Footer Profile */}
-      <div className="p-3 mx-3 mb-4 rounded-xl shadow-soft" style={{ background: "rgba(255,255,255,0.05)" }}>
-        <div className="flex items-center gap-3">
-          <div
-            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
-            style={{ background: "#183731", color: "#38B298" }}
-          >
-            {(user.name || user.email)?.[0]?.toUpperCase() || "U"}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold truncate capitalize" style={{ color: "var(--sidebar-ink)" }}>
-              {user.name || user.email?.split("@")[0]}
-            </p>
-            <p className="text-[10px] truncate" style={{ color: "var(--sidebar-ink-2)" }}>
-              {role} Account
-            </p>
-          </div>
-          <button
-            onClick={handleLogout}
-            title="Sign out"
-            className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
-            style={{ color: "var(--sidebar-ink-2)" }}
-          >
-            <LogOut size={15} />
-          </button>
+      {/* Saylani Hackathon Badge Box from Mockup */}
+      <div className="mx-3.5 mb-3 p-3.5 rounded-xl bg-[#102528] border border-teal-900/30">
+        <p className="text-xs font-semibold text-white">Saylani Hackathon</p>
+        <div className="flex items-center gap-1.5 mt-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-[11px] text-emerald-400 font-medium">24 Oct 2026</span>
         </div>
+        <p className="text-[10px] text-slate-400 mt-0.5">Zaitoon Ashraf IT Park</p>
+      </div>
+
+      {/* User Profile Bar */}
+      <div className="px-3 pb-4 border-t border-slate-800/80 pt-3">
+        <div className="relative">
+          <div
+            onClick={() => setRoleMenuOpen(!roleMenuOpen)}
+            className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 cursor-pointer transition-colors"
+          >
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white text-xs font-bold ring-2 ring-emerald-500/30 shrink-0">
+              {user.name ? user.name[0]?.toUpperCase() : "A"}
+            </div>
+            <div className="flex-1 min-w-0 text-left">
+              <p className="text-xs font-semibold text-white truncate">{user.name || "Ahmed Khan"}</p>
+              <p className="text-[11px] text-slate-400 flex items-center gap-1">
+                <span>{role}</span>
+                <ChevronDown size={12} className="opacity-70" />
+              </p>
+            </div>
+          </div>
+
+          {/* Quick Role Switcher Dropdown */}
+          {roleMenuOpen && (
+            <div className="absolute bottom-12 left-0 right-0 bg-[#0E2023] border border-slate-700/60 rounded-xl p-1.5 shadow-2xl z-50 space-y-1">
+              <p className="text-[10px] uppercase tracking-wider text-slate-400 px-2 py-1 font-semibold">Switch Role</p>
+              {(["Admin", "HR", "Employee"] as const).map((r) => (
+                <button
+                  key={r}
+                  onClick={() => {
+                    switchRole(r);
+                    setRoleMenuOpen(false);
+                  }}
+                  className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                    role === r ? "bg-teal-900/60 text-teal-300 font-bold" : "text-slate-300 hover:bg-white/10"
+                  }`}
+                >
+                  {r === "Employee" ? "Employee (Staff)" : r}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Sign Out Button */}
+        <button
+          onClick={handleLogout}
+          className="w-full mt-1.5 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+        >
+          <LogOut size={14} />
+          <span>Sign Out</span>
+        </button>
       </div>
     </div>
   );
 
   return (
     <>
-      {/* Mobile Toggle Button */}
+      {/* Mobile Menu Button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="fixed top-4 left-4 z-40 p-2.5 rounded-xl shadow-card md:hidden"
-        style={{ background: "var(--surface)", color: "var(--ink)" }}
+        className="fixed top-4 left-4 z-40 p-2.5 rounded-xl bg-white shadow-md md:hidden text-slate-800"
         aria-label="Open Navigation"
       >
-        <Menu size={18} />
+        <Menu size={20} />
       </button>
 
       {/* Mobile Drawer Backdrop */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 md:hidden backdrop-blur-sm transition-opacity"
-          style={{ background: "var(--scrim)" }}
+          className="fixed inset-0 z-40 md:hidden bg-black/60 backdrop-blur-sm"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Mobile Drawer */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 z-50 w-64 transform transition-transform duration-300 md:hidden shadow-elevation ${
+        className={`fixed top-0 left-0 bottom-0 z-50 w-64 transform transition-transform duration-300 md:hidden shadow-2xl ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
-        style={{ background: "var(--sidebar)" }}
       >
         <button
           onClick={() => setMobileOpen(false)}
-          className="absolute top-4 right-4 p-1 rounded-lg"
-          style={{ color: "var(--sidebar-ink-2)" }}
+          className="absolute top-4 right-4 p-1 text-slate-400 hover:text-white"
         >
-          <X size={18} />
+          <X size={20} />
         </button>
         {navContent}
       </aside>
 
       {/* Desktop Sidebar */}
-      <aside
-        className="hidden md:block w-64 shrink-0 min-h-screen sticky top-0 h-screen shadow-panel"
-        style={{ background: "var(--sidebar)" }}
-      >
+      <aside className="hidden md:block w-64 shrink-0 min-h-screen sticky top-0 h-screen shadow-xl z-30">
         {navContent}
       </aside>
     </>
