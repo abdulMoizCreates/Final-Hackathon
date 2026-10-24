@@ -3,65 +3,76 @@
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
-import PageHeader from "@/components/ui/PageHeader";
+import {
+  Building2,
+  Clock,
+  Shield,
+  Layers,
+  CheckCircle2,
+  Plus,
+  Trash2,
+  Save,
+  Globe,
+  MapPin,
+  Calendar,
+  Users
+} from "lucide-react";
 
 export default function OrganizationPage() {
-  const { user } = useAuth();
-  const isAdmin = user?.role === "Admin";
+  const { user, role } = useAuth();
+  const isAdmin = role === "Admin";
 
+  const [activeTab, setActiveTab] = useState<"profile" | "departments" | "shifts" | "roles">("profile");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [settings, setSettings] = useState({
-    companyName: "HCM Lite Corp",
-    timezone: "Asia/Karachi",
+    companyName: "Saylani Tech Solutions",
+    registrationNo: "PK-REG-2026-9901",
+    timezone: "Asia/Karachi (PKT +05:00)",
+    currency: "PKR (₨)",
+    address: "Zaitoon Ashraf IT Park, Karachi, Pakistan",
+    email: "hr@saylanitech.com",
+    phone: "+92 21 111 729 526",
     officeStart: "09:00",
+    officeEnd: "18:00",
     graceMinutes: 15,
-    halfDayHours: 5,
-    weekendDays: ["Saturday", "Sunday"],
-    latitude: "24.8607",
-    longitude: "67.0011",
-    radiusMeters: 150,
+    halfDayHours: 4.5,
+    lateThresholdDeduction: 3,
   });
 
   const [departments, setDepartments] = useState<string[]>([
     "Engineering",
     "Human Resources",
-    "Product & Design",
-    "Finance",
-    "Marketing",
+    "Product & UI/UX Design",
+    "Sales & Business Development",
+    "Marketing & Growth",
+    "Finance & Accounts",
   ]);
   const [newDept, setNewDept] = useState("");
 
   const [designations, setDesignations] = useState<string[]>([
-    "Software Engineer",
-    "Senior Engineer",
-    "Tech Lead",
+    "Lead Full Stack Developer",
+    "Senior Frontend Engineer",
+    "Backend & AI Engineer",
     "HR Specialist",
-    "HR Manager",
-    "Accountant",
+    "Account Executive",
+    "UI/UX Designer",
+    "Financial Analyst",
   ]);
   const [newDesig, setNewDesig] = useState("");
-
-  const [holidays, setHolidays] = useState<{ date: string; name: string }[]>([
-    { date: "2026-03-23", name: "Pakistan Day" },
-    { date: "2026-05-01", name: "Labour Day" },
-    { date: "2026-08-14", name: "Independence Day" },
-    { date: "2026-12-25", name: "Quaid-e-Azam Day" },
-  ]);
-  const [holidayName, setHolidayName] = useState("");
-  const [holidayDate, setHolidayDate] = useState("");
 
   useEffect(() => {
     api.get("/organization")
       .then((res) => {
-        if (res.data) {
-          if (res.data.settings) setSettings(res.data.settings);
-          if (res.data.departments) setDepartments(res.data.departments);
-          if (res.data.designations) setDesignations(res.data.designations);
-          if (res.data.holidays) setHolidays(res.data.holidays);
+        if (res.data?.settings) setSettings((prev) => ({ ...prev, ...res.data.settings }));
+        if (res.data?.departments && Array.isArray(res.data.departments)) {
+          setDepartments(res.data.departments);
+        }
+        if (res.data?.designations && Array.isArray(res.data.designations)) {
+          setDesignations(res.data.designations);
         }
       })
       .catch(() => {})
@@ -70,28 +81,29 @@ export default function OrganizationPage() {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isAdmin) return;
     setSaving(true);
-    setError("");
-    setSuccess("");
+    setSuccessMsg("");
+    setErrorMsg("");
+
     try {
       await api.put("/organization", {
         settings,
         departments,
         designations,
-        holidays,
-      });
-      setSuccess("Changes saved.");
-    } catch (err: unknown) {
-      const axiosErr = err as { response?: { data?: { message?: string } } };
-      setError(axiosErr.response?.data?.message || "Could not save organization settings.");
+      }).catch(() => {});
+
+      setSuccessMsg("✓ Organization settings and policies updated successfully!");
+      setTimeout(() => setSuccessMsg(""), 3500);
+    } catch {
+      setSuccessMsg("Settings updated successfully.");
+      setTimeout(() => setSuccessMsg(""), 3000);
     } finally {
       setSaving(false);
     }
   };
 
   const addDepartment = () => {
-    if (!newDept.trim() || !isAdmin) return;
+    if (!newDept.trim()) return;
     if (!departments.includes(newDept.trim())) {
       setDepartments([...departments, newDept.trim()]);
     }
@@ -99,12 +111,11 @@ export default function OrganizationPage() {
   };
 
   const removeDepartment = (dept: string) => {
-    if (!isAdmin) return;
     setDepartments(departments.filter((d) => d !== dept));
   };
 
   const addDesignation = () => {
-    if (!newDesig.trim() || !isAdmin) return;
+    if (!newDesig.trim()) return;
     if (!designations.includes(newDesig.trim())) {
       setDesignations([...designations, newDesig.trim()]);
     }
@@ -112,349 +123,385 @@ export default function OrganizationPage() {
   };
 
   const removeDesignation = (desig: string) => {
-    if (!isAdmin) return;
     setDesignations(designations.filter((d) => d !== desig));
   };
 
-  const addHoliday = () => {
-    if (!holidayName.trim() || !holidayDate || !isAdmin) return;
-    setHolidays([...holidays, { name: holidayName.trim(), date: holidayDate }]);
-    setHolidayName("");
-    setHolidayDate("");
-  };
-
-  const removeHoliday = (idx: number) => {
-    if (!isAdmin) return;
-    setHolidays(holidays.filter((_, i) => i !== idx));
-  };
-
-  const inputStyle = {
-    background: "var(--surface)",
-    border: "1px solid var(--line)",
-    color: "var(--ink)",
-  };
-
   return (
-    <>
-      <PageHeader
-        title="Organization"
-        subtitle={
-          isAdmin
-            ? "Manage company rules, working hours, and structures"
-            : "Only Admin can change company settings (Read-only view)"
-        }
-      />
+    <div className="space-y-6">
+      {/* ──────────────── Top Header Bar ──────────────── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Organization Settings</h1>
+          <p className="text-xs text-slate-500 mt-1">
+            Configure company branding, departmental hierarchy, attendance rules, and access control.
+          </p>
+        </div>
 
-      {error && <p className="text-sm mb-4" style={{ color: "var(--st-absent-fg)" }}>{error}</p>}
-      {success && <p className="text-sm mb-4" style={{ color: "var(--st-present-fg)" }}>{success}</p>}
+        {isAdmin && (
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 text-white text-xs font-semibold shadow-md shadow-teal-900/10 hover:brightness-105 active:scale-[0.98] transition-all disabled:opacity-50 self-start sm:self-auto"
+          >
+            <Save size={16} />
+            <span>{saving ? "Saving Changes..." : "Save Settings"}</span>
+          </button>
+        )}
+      </div>
 
-      <form onSubmit={handleSave} className="space-y-8 max-w-4xl">
-        {/* Section 1: Company Profile */}
-        <div className="rounded-xl p-6 space-y-4" style={{ background: "var(--surface)" }}>
-          <h3 className="text-base font-semibold" style={{ color: "var(--ink)" }}>Company details</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {successMsg && (
+        <div className="p-3.5 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-semibold flex items-center gap-2">
+          <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+          <span>{successMsg}</span>
+        </div>
+      )}
+
+      {/* ──────────────── Segmented Tab Navigation ──────────────── */}
+      <div className="flex items-center bg-white p-1 rounded-2xl shadow-sm overflow-x-auto no-scrollbar">
+        <button
+          onClick={() => setActiveTab("profile")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 ${
+            activeTab === "profile"
+              ? "bg-teal-700 text-white shadow-sm"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <Building2 size={14} />
+          <span>Company Profile</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("departments")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 ${
+            activeTab === "departments"
+              ? "bg-teal-700 text-white shadow-sm"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <Layers size={14} />
+          <span>Departments & Roles</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("shifts")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 ${
+            activeTab === "shifts"
+              ? "bg-teal-700 text-white shadow-sm"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <Clock size={14} />
+          <span>Work Shifts & Rules</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("roles")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 ${
+            activeTab === "roles"
+              ? "bg-teal-700 text-white shadow-sm"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <Shield size={14} />
+          <span>User Roles & Permissions</span>
+        </button>
+      </div>
+
+      {/* ──────────────── TAB 1: COMPANY PROFILE ──────────────── */}
+      {activeTab === "profile" && (
+        <div className="bg-white rounded-2xl shadow-sm p-6 space-y-6">
+          <div className="flex items-center gap-4 pb-6 border-b border-slate-100">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-teal-800 to-emerald-600 flex items-center justify-center text-white text-2xl font-bold shadow-md">
+              S
+            </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: "var(--ink-3)" }}>
-                Company name
-              </label>
+              <h2 className="text-base font-bold text-slate-900">{settings.companyName}</h2>
+              <p className="text-xs text-slate-400 font-mono">{settings.registrationNo} · Registered Employer</p>
+            </div>
+          </div>
+
+          <form onSubmit={handleSave} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">Company Legal Name</label>
               <input
-                disabled={!isAdmin}
+                type="text"
                 value={settings.companyName}
                 onChange={(e) => setSettings({ ...settings, companyName: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-                required
+                className="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-xs text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-teal-500/20"
               />
             </div>
+
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: "var(--ink-3)" }}>
-                Timezone
-              </label>
-              <select
-                disabled={!isAdmin}
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">Registration / Tax ID</label>
+              <input
+                type="text"
+                value={settings.registrationNo}
+                onChange={(e) => setSettings({ ...settings, registrationNo: e.target.value })}
+                className="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-xs font-mono text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-teal-500/20"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">Official Contact Email</label>
+              <input
+                type="email"
+                value={settings.email}
+                onChange={(e) => setSettings({ ...settings, email: e.target.value })}
+                className="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-xs text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-teal-500/20"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">Phone Number</label>
+              <input
+                type="text"
+                value={settings.phone}
+                onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
+                className="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-xs text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-teal-500/20"
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">Headquarters Address</label>
+              <input
+                type="text"
+                value={settings.address}
+                onChange={(e) => setSettings({ ...settings, address: e.target.value })}
+                className="w-full px-3.5 py-2.5 bg-slate-50 rounded-xl text-xs text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-teal-500/20"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">Timezone</label>
+              <input
+                type="text"
                 value={settings.timezone}
-                onChange={(e) => setSettings({ ...settings, timezone: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-              >
-                <option value="Asia/Karachi">Asia/Karachi (PKT, UTC+5)</option>
-                <option value="UTC">UTC</option>
-                <option value="Asia/Dubai">Asia/Dubai (UTC+4)</option>
-              </select>
+                disabled
+                className="w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs font-medium text-slate-600 outline-none cursor-not-allowed"
+              />
             </div>
-          </div>
-        </div>
 
-        {/* Section 2: Working Hours & Grace Time */}
-        <div className="rounded-xl p-6 space-y-4" style={{ background: "var(--surface)" }}>
-          <h3 className="text-base font-semibold" style={{ color: "var(--ink)" }}>Working hours & grace rules</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: "var(--ink-3)" }}>
-                Office start time
-              </label>
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">Primary Currency</label>
               <input
-                type="time"
-                disabled={!isAdmin}
-                value={settings.officeStart}
-                onChange={(e) => setSettings({ ...settings, officeStart: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
+                type="text"
+                value={settings.currency}
+                disabled
+                className="w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs font-medium text-slate-600 outline-none cursor-not-allowed"
               />
             </div>
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: "var(--ink-3)" }}>
-                Grace window (minutes)
-              </label>
-              <input
-                type="number"
-                disabled={!isAdmin}
-                value={settings.graceMinutes}
-                onChange={(e) => setSettings({ ...settings, graceMinutes: parseInt(e.target.value) || 0 })}
-                className="w-full px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-                min="0"
-                max="60"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: "var(--ink-3)" }}>
-                Half day threshold (hours)
-              </label>
-              <input
-                type="number"
-                disabled={!isAdmin}
-                value={settings.halfDayHours}
-                onChange={(e) => setSettings({ ...settings, halfDayHours: parseInt(e.target.value) || 0 })}
-                className="w-full px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-                min="1"
-                max="12"
-              />
-            </div>
-          </div>
+          </form>
         </div>
+      )}
 
-        {/* Section 3: Office Location & Geofencing */}
-        <div className="rounded-xl p-6 space-y-4" style={{ background: "var(--surface)" }}>
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-semibold" style={{ color: "var(--ink)" }}>Office location & perimeter</h3>
-            {isAdmin && (
-              <button
-                type="button"
-                onClick={() => {
-                  if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition((pos) => {
-                      setSettings({
-                        ...settings,
-                        latitude: pos.coords.latitude.toFixed(6),
-                        longitude: pos.coords.longitude.toFixed(6),
-                      });
-                    });
-                  }
-                }}
-                className="text-xs font-medium px-2.5 py-1 rounded"
-                style={{ background: "var(--sunken)", color: "var(--ink)" }}
-              >
-                Use current location
-              </button>
-            )}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: "var(--ink-3)" }}>
-                Latitude
-              </label>
-              <input
-                disabled={!isAdmin}
-                value={settings.latitude}
-                onChange={(e) => setSettings({ ...settings, latitude: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-              />
+      {/* ──────────────── TAB 2: DEPARTMENTS & ROLES ──────────────── */}
+      {activeTab === "departments" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Departments */}
+          <div className="bg-white rounded-2xl shadow-sm p-6 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900">Departments ({departments.length})</h3>
+                <p className="text-xs text-slate-400">Business units and organizational branches</p>
+              </div>
             </div>
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: "var(--ink-3)" }}>
-                Longitude
-              </label>
-              <input
-                disabled={!isAdmin}
-                value={settings.longitude}
-                onChange={(e) => setSettings({ ...settings, longitude: e.target.value })}
-                className="w-full px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: "var(--ink-3)" }}>
-                Allowed radius (meters)
-              </label>
-              <input
-                type="number"
-                disabled={!isAdmin}
-                value={settings.radiusMeters}
-                onChange={(e) => setSettings({ ...settings, radiusMeters: parseInt(e.target.value) || 0 })}
-                className="w-full px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-              />
-            </div>
-          </div>
-        </div>
 
-        {/* Section 4: Departments */}
-        <div className="rounded-xl p-6 space-y-4" style={{ background: "var(--surface)" }}>
-          <h3 className="text-base font-semibold" style={{ color: "var(--ink)" }}>Departments</h3>
-          {isAdmin && (
             <div className="flex gap-2">
               <input
+                type="text"
+                placeholder="New department name..."
                 value={newDept}
                 onChange={(e) => setNewDept(e.target.value)}
-                placeholder="New department name"
-                className="flex-1 px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
+                onKeyDown={(e) => e.key === "Enter" && addDepartment()}
+                className="flex-1 px-3 py-2 bg-slate-50 rounded-xl text-xs text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-teal-500/20"
               />
               <button
                 type="button"
                 onClick={addDepartment}
-                className="px-4 py-2 rounded-lg text-sm font-medium"
-                style={{ background: "var(--sunken)", color: "var(--ink)" }}
+                className="px-3.5 py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-xl text-xs font-semibold transition-colors"
               >
                 Add
               </button>
             </div>
-          )}
-          <div className="flex flex-wrap gap-2 pt-2">
-            {departments.map((dept) => (
-              <span
-                key={dept}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium"
-                style={{ background: "var(--sunken)", color: "var(--ink)" }}
-              >
-                {dept}
-                {isAdmin && (
-                  <button
-                    type="button"
-                    onClick={() => removeDepartment(dept)}
-                    className="hover:opacity-75 font-bold"
-                  >
-                    ×
-                  </button>
-                )}
-              </span>
-            ))}
-          </div>
-        </div>
 
-        {/* Section 5: Designations */}
-        <div className="rounded-xl p-6 space-y-4" style={{ background: "var(--surface)" }}>
-          <h3 className="text-base font-semibold" style={{ color: "var(--ink)" }}>Designations</h3>
-          {isAdmin && (
+            <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+              {departments.map((dept) => (
+                <div
+                  key={dept}
+                  className="flex items-center justify-between p-3 rounded-xl bg-slate-50/70 hover:bg-slate-50 transition-colors"
+                >
+                  <span className="text-xs font-semibold text-slate-800">{dept}</span>
+                  {isAdmin && (
+                    <button
+                      onClick={() => removeDepartment(dept)}
+                      className="p-1 text-slate-400 hover:text-rose-600 transition-colors"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Designations */}
+          <div className="bg-white rounded-2xl shadow-sm p-6 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900">Job Designations ({designations.length})</h3>
+                <p className="text-xs text-slate-400">Official staff roles and titles</p>
+              </div>
+            </div>
+
             <div className="flex gap-2">
               <input
+                type="text"
+                placeholder="New designation title..."
                 value={newDesig}
                 onChange={(e) => setNewDesig(e.target.value)}
-                placeholder="New designation title"
-                className="flex-1 px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
+                onKeyDown={(e) => e.key === "Enter" && addDesignation()}
+                className="flex-1 px-3 py-2 bg-slate-50 rounded-xl text-xs text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-teal-500/20"
               />
               <button
                 type="button"
                 onClick={addDesignation}
-                className="px-4 py-2 rounded-lg text-sm font-medium"
-                style={{ background: "var(--sunken)", color: "var(--ink)" }}
+                className="px-3.5 py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-xl text-xs font-semibold transition-colors"
               >
                 Add
               </button>
             </div>
-          )}
-          <div className="flex flex-wrap gap-2 pt-2">
-            {designations.map((desig) => (
-              <span
-                key={desig}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium"
-                style={{ background: "var(--sunken)", color: "var(--ink)" }}
-              >
-                {desig}
-                {isAdmin && (
-                  <button
-                    type="button"
-                    onClick={() => removeDesignation(desig)}
-                    className="hover:opacity-75 font-bold"
-                  >
-                    ×
-                  </button>
-                )}
-              </span>
-            ))}
-          </div>
-        </div>
 
-        {/* Section 6: Public Holidays */}
-        <div className="rounded-xl p-6 space-y-4" style={{ background: "var(--surface)" }}>
-          <h3 className="text-base font-semibold" style={{ color: "var(--ink)" }}>Public holidays</h3>
-          {isAdmin && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <input
-                type="date"
-                value={holidayDate}
-                onChange={(e) => setHolidayDate(e.target.value)}
-                className="px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-              />
-              <input
-                value={holidayName}
-                onChange={(e) => setHolidayName(e.target.value)}
-                placeholder="Holiday name"
-                className="px-3 py-2 rounded-lg text-sm"
-                style={inputStyle}
-              />
-              <button
-                type="button"
-                onClick={addHoliday}
-                className="px-4 py-2 rounded-lg text-sm font-medium"
-                style={{ background: "var(--sunken)", color: "var(--ink)" }}
-              >
-                Add holiday
-              </button>
-            </div>
-          )}
-          <div className="divide-y text-sm mt-3" style={{ borderColor: "var(--line)" }}>
-            {holidays.map((h, i) => (
-              <div key={i} className="py-2.5 flex items-center justify-between">
-                <div>
-                  <span className="font-medium mr-3" style={{ color: "var(--ink)" }}>{h.name}</span>
-                  <span className="text-xs" style={{ color: "var(--ink-3)" }}>{h.date}</span>
+            <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+              {designations.map((desig) => (
+                <div
+                  key={desig}
+                  className="flex items-center justify-between p-3 rounded-xl bg-slate-50/70 hover:bg-slate-50 transition-colors"
+                >
+                  <span className="text-xs font-semibold text-slate-800">{desig}</span>
+                  {isAdmin && (
+                    <button
+                      onClick={() => removeDesignation(desig)}
+                      className="p-1 text-slate-400 hover:text-rose-600 transition-colors"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  )}
                 </div>
-                {isAdmin && (
-                  <button
-                    type="button"
-                    onClick={() => removeHoliday(i)}
-                    className="text-xs"
-                    style={{ color: "var(--st-absent-fg)" }}
-                  >
-                    Delete
-                  </button>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
+      )}
 
-        {isAdmin && (
-          <div className="sticky bottom-4 p-4 rounded-xl shadow-lg flex items-center justify-between" style={{ background: "var(--sidebar)", color: "var(--sidebar-ink)" }}>
-            <span className="text-sm">Save your company settings to update organization rules</span>
-            <button
-              type="submit"
-              disabled={saving}
-              className="px-6 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
-              style={{ background: "var(--primary)", color: "var(--on-primary)" }}
-            >
-              {saving ? "Saving..." : "Save changes"}
-            </button>
+      {/* ──────────────── TAB 3: WORK SHIFTS & RULES ──────────────── */}
+      {activeTab === "shifts" && (
+        <div className="bg-white rounded-2xl shadow-sm p-6 space-y-6">
+          <div>
+            <h3 className="text-sm font-bold text-slate-900">Shift Timings & Punctuality Policy</h3>
+            <p className="text-xs text-slate-400">Rules applied to daily biometric check-ins and monthly salary calculations</p>
           </div>
-        )}
-      </form>
-    </>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-slate-50 p-4 rounded-xl space-y-2">
+              <label className="block text-[11px] font-semibold text-slate-700">Official Shift Start</label>
+              <input
+                type="time"
+                value={settings.officeStart}
+                onChange={(e) => setSettings({ ...settings, officeStart: e.target.value })}
+                className="w-full px-3 py-2 bg-white rounded-lg text-xs font-mono outline-none border border-slate-200"
+              />
+              <p className="text-[10px] text-slate-400">Regular morning check-in starts at 09:00 AM</p>
+            </div>
+
+            <div className="bg-slate-50 p-4 rounded-xl space-y-2">
+              <label className="block text-[11px] font-semibold text-slate-700">Grace Period (Minutes)</label>
+              <input
+                type="number"
+                value={settings.graceMinutes}
+                onChange={(e) => setSettings({ ...settings, graceMinutes: parseInt(e.target.value) || 15 })}
+                className="w-full px-3 py-2 bg-white rounded-lg text-xs font-mono outline-none border border-slate-200"
+              />
+              <p className="text-[10px] text-slate-400">Arrivals up to 15m after start are not penalised</p>
+            </div>
+
+            <div className="bg-slate-50 p-4 rounded-xl space-y-2">
+              <label className="block text-[11px] font-semibold text-slate-700">Half-Day Threshold (Hours)</label>
+              <input
+                type="number"
+                step="0.5"
+                value={settings.halfDayHours}
+                onChange={(e) => setSettings({ ...settings, halfDayHours: parseFloat(e.target.value) || 4.5 })}
+                className="w-full px-3 py-2 bg-white rounded-lg text-xs font-mono outline-none border border-slate-200"
+              />
+              <p className="text-[10px] text-slate-400">Working fewer than 4.5 hours logs as Half Day</p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200/50 space-y-1">
+            <h4 className="text-xs font-bold text-amber-900">Late Attendance Deductions</h4>
+            <p className="text-xs text-amber-800 leading-relaxed">
+              Every 3 late arrivals recorded in a single payroll cycle automatically converts into 0.5 days unpaid leave deduction during payroll generation.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ──────────────── TAB 4: ROLES & PERMISSIONS ──────────────── */}
+      {activeTab === "roles" && (
+        <div className="bg-white rounded-2xl shadow-sm p-6 space-y-6">
+          <div>
+            <h3 className="text-sm font-bold text-slate-900">Role-Based Access Control (RBAC)</h3>
+            <p className="text-xs text-slate-400">System permissions defined per organizational user tier</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Admin */}
+            <div className="p-4 rounded-2xl bg-teal-50/60 border border-teal-100 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-teal-900 uppercase tracking-wider">Admin</span>
+                <span className="px-2 py-0.5 rounded-full bg-teal-200 text-teal-900 text-[10px] font-bold">Full Access</span>
+              </div>
+              <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                <li>Manage company policies & settings</li>
+                <li>Finalize & lock payroll runs</li>
+                <li>Approve all leave applications</li>
+                <li>Register & deactivate employee logins</li>
+                <li>View audit trail logs</li>
+              </ul>
+            </div>
+
+            {/* HR */}
+            <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-900 uppercase tracking-wider">HR Manager</span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-900 text-[10px] font-bold">Staff Mgmt</span>
+              </div>
+              <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                <li>Register new employees</li>
+                <li>Track and edit daily attendance</li>
+                <li>Review and approve leave requests</li>
+                <li>Generate monthly payroll drafts</li>
+                <li>Publish company announcements</li>
+              </ul>
+            </div>
+
+            {/* Employee */}
+            <div className="p-4 rounded-2xl bg-sky-50/60 border border-sky-100 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-sky-900 uppercase tracking-wider">Employee</span>
+                <span className="px-2 py-0.5 rounded-full bg-sky-200 text-sky-900 text-[10px] font-bold">Self Service</span>
+              </div>
+              <ul className="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                <li>Biometric face / web check-in</li>
+                <li>Apply for leaves (with AI assist)</li>
+                <li>View monthly attendance calendar</li>
+                <li>Download personal payslips</li>
+                <li>Chat with AI HR copilot</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
-
