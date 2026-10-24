@@ -1,7 +1,6 @@
 import api from "@/lib/api";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export interface AssistantStatus {
   online: boolean;
@@ -34,6 +33,7 @@ export async function streamChat(
   const response = await fetch(`${API_URL}/assistant/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+    credentials: "include",
     body: JSON.stringify({ sessionId, message }),
     signal,
   });

@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { assistantApi, streamChat, type AssistantStatus } from "@/api/assistant";
+import MarkdownResponse from "./MarkdownResponse";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -150,7 +151,7 @@ export default function ChatWidget() {
       {open && (
         <section
           aria-label="AI chat assistant"
-          className="flex h-[560px] max-h-[calc(100vh-8rem)] w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+          className="flex h-[580px] max-h-[calc(100vh-8rem)] w-[min(92vw,420px)] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
         >
           {/* Header */}
           <header className="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-violet-600 p-4 text-white">
@@ -216,27 +217,39 @@ export default function ChatWidget() {
               </div>
             )}
 
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm ${
-                  message.role === "user"
-                    ? "ml-auto rounded-br-md bg-blue-600 text-white"
-                    : "mr-auto rounded-bl-md bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
-                }`}
-              >
-                {message.content}
-                {index === messages.length - 1 &&
-                  streaming &&
-                  message.role === "assistant" &&
-                  message.content !== "" && (
-                    <span
-                      className="ml-0.5 inline-block h-3.5 w-[2px] translate-y-0.5 animate-pulse bg-current"
-                      aria-hidden
-                    />
+            {messages.map((message, index) => {
+              const isAssistant = message.role === "assistant";
+              const isLastStreaming =
+                index === messages.length - 1 && streaming && isAssistant;
+
+              return (
+                <div
+                  key={index}
+                  className={`max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                    !isAssistant
+                      ? "ml-auto rounded-br-md bg-blue-600 text-white whitespace-pre-wrap"
+                      : "mr-auto rounded-bl-md bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
+                  }`}
+                >
+                  {isAssistant ? (
+                    <div className="relative">
+                      <MarkdownResponse
+                        content={message.content}
+                        isStreaming={isLastStreaming}
+                      />
+                      {isLastStreaming && message.content !== "" && (
+                        <span
+                          className="ml-1 inline-block h-3.5 w-[2px] translate-y-0.5 animate-pulse bg-current"
+                          aria-hidden
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    message.content
                   )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
 
             {streaming &&
               messages[messages.length - 1]?.content === "" && (
