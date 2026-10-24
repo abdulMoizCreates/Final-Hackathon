@@ -10,18 +10,18 @@ interface PageHeaderProps {
 
 export default function PageHeader({ title, subtitle, children }: PageHeaderProps) {
   return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between mb-8">
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-8 font-sans">
       <div>
-        <h1 className="text-3xl font-normal tracking-tight" style={{ color: "var(--ink)" }}>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight" style={{ color: "var(--ink)" }}>
           {title}
         </h1>
         {subtitle && (
-          <p className="text-sm mt-1" style={{ color: "var(--ink-3)" }}>
+          <p className="text-xs sm:text-sm mt-1 font-normal" style={{ color: "var(--ink-3)" }}>
             {subtitle}
           </p>
         )}
       </div>
-      {children && <div className="flex items-center gap-3 mt-3 sm:mt-0">{children}</div>}
+      {children && <div className="flex items-center gap-3 mt-2 sm:mt-0">{children}</div>}
     </div>
   );
 }

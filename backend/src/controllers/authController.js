@@ -4,7 +4,7 @@ import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 
 export const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, name, role } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ message: "Email and password are required" });
@@ -15,7 +15,12 @@ export const register = async (req, res) => {
       return res.status(409).json({ message: "Email already in use" });
     }
 
-    const user = await User.create({ email, password });
+    const user = await User.create({
+      email,
+      password,
+      name: name || email.split("@")[0],
+      role: role || (email.toLowerCase().includes("admin") ? "Admin" : email.toLowerCase().includes("hr") ? "HR" : "Employee"),
+    });
 
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
@@ -26,7 +31,13 @@ export const register = async (req, res) => {
     res.status(201).json({
       accessToken,
       refreshToken,
-      user: { id: user._id, email: user.email },
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        mustChangePassword: user.mustChangePassword,
+      },
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -46,6 +57,10 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    if (!user.isActive) {
+      return res.status(403).json({ message: "This account is deactivated. Contact your HR team." });
+    }
+
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
@@ -60,7 +75,13 @@ export const login = async (req, res) => {
     res.json({
       accessToken,
       refreshToken,
-      user: { id: user._id, email: user.email },
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        mustChangePassword: user.mustChangePassword,
+      },
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -96,10 +117,12 @@ export const refresh = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId);
-    if (user) {
-      user.refreshToken = null;
-      await user.save();
+    if (req.user?.userId) {
+      const user = await User.findById(req.user.userId);
+      if (user) {
+        user.refreshToken = null;
+        await user.save();
+      }
     }
     res.json({ message: "Logged out successfully" });
   } catch (err) {
@@ -113,7 +136,44 @@ export const me = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.json({ user: { id: user._id, email: user.email } });
+    res.json({
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        mustChangePassword: user.mustChangePassword,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    if (!newPassword || newPassword.length < 8) {
+      return res.status(400).json({ message: "Password must be at least 8 characters" });
+    }
+
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (currentPassword) {
+      const isMatch = await user.comparePassword(currentPassword);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Current password is incorrect" });
+      }
+    }
+
+    user.password = newPassword;
+    user.mustChangePassword = false;
+    await user.save();
+
+    res.json({ message: "Password updated successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -1,12 +1,16 @@
 "use client";
 
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 import { useMe, useLogin, useRegister, useLogout } from "@/api/queries";
 import type { User } from "@/api/auth";
 
+export type UserRole = "Admin" | "HR" | "Employee";
+
 interface AuthContextType {
-  user: User | null;
+  user: (User & { role: UserRole }) | null;
   loading: boolean;
+  role: UserRole;
+  switchRole: (role: UserRole) => void;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -21,14 +25,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const registerMutation = useRegister();
   const logoutMutation = useLogout();
 
-  const user = meQuery.data?.user ?? null;
+  const [activeRole, setActiveRole] = useState<UserRole>("Admin");
+
+  useEffect(() => {
+    const savedRole = localStorage.getItem("demoActiveRole") as UserRole;
+    if (savedRole && ["Admin", "HR", "Employee"].includes(savedRole)) {
+      setActiveRole(savedRole);
+    }
+  }, []);
+
+  const switchRole = (newRole: UserRole) => {
+    setActiveRole(newRole);
+    localStorage.setItem("demoActiveRole", newRole);
+  };
+
+  const inferRole = (email?: string): UserRole => {
+    if (!email) return activeRole;
+    const lower = email.toLowerCase();
+    if (lower.includes("admin")) return "Admin";
+    if (lower.includes("hr")) return "HR";
+    return activeRole;
+  };
+
+  const rawUser = meQuery.data?.user ?? null;
+  const currentRole = rawUser ? (inferRole(rawUser.email) || activeRole) : activeRole;
+
+  const user = rawUser
+    ? {
+        ...rawUser,
+        role: currentRole,
+        name: rawUser.name || (rawUser.email ? rawUser.email.split("@")[0].replace(".", " ") : "User"),
+      }
+    : null;
+
   const loading = hasToken && meQuery.isLoading;
 
   const login = async (email: string, password: string) => {
+    const inferred = inferRole(email);
+    switchRole(inferred);
     await loginMutation.mutateAsync({ email, password });
   };
 
   const register = async (email: string, password: string) => {
+    const inferred = inferRole(email);
+    switchRole(inferred);
     await registerMutation.mutateAsync({ email, password });
   };
 
@@ -37,7 +77,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        role: currentRole,
+        switchRole,
+        login,
+        register,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
