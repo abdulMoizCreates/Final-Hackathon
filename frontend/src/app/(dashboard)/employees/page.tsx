@@ -162,7 +162,7 @@ export default function EmployeesPage() {
         {role !== "Employee" && (
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 text-white text-xs font-semibold shadow-md shadow-teal-900/10 hover:brightness-105 active:scale-[0.98] transition-all self-start sm:self-auto"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 text-white text-xs font-semibold shadow-md shadow-teal-900/10 hover:brightness-105 active:scale-[0.98] transition-all self-start sm:self-auto cursor-pointer"
           >
             <Plus size={16} />
             <span>Add Employee</span>
@@ -355,7 +355,7 @@ export default function EmployeesPage() {
                               e.stopPropagation();
                               router.push(`/employees/${emp._id}`);
                             }}
-                            className="px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-teal-50 hover:text-teal-700 text-slate-600 text-[11px] font-semibold transition-all"
+                            className="px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-teal-50 hover:text-teal-700 text-slate-600 text-[11px] font-semibold transition-all cursor-pointer"
                           >
                             View
                           </button>

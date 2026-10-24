@@ -87,14 +87,14 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Saylani Hackathon Badge Box from Mockup */}
+      {/* Enterprise Status Badge */}
       <div className="mx-3.5 mb-3 p-3.5 rounded-xl bg-[#102528] border border-teal-900/30">
-        <p className="text-xs font-semibold text-white">Saylani Hackathon</p>
+        <p className="text-xs font-semibold text-white">Enterprise Cloud</p>
         <div className="flex items-center gap-1.5 mt-1">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[11px] text-emerald-400 font-medium">24 Oct 2026</span>
+          <span className="text-[11px] text-emerald-400 font-medium">All Systems Operational</span>
         </div>
-        <p className="text-[10px] text-slate-400 mt-0.5">Zaitoon Ashraf IT Park</p>
+        <p className="text-[10px] text-slate-400 mt-0.5">HCM Lite v2.4 Enterprise</p>
       </div>
 
       {/* User Profile Bar */}
@@ -141,7 +141,7 @@ export default function Sidebar() {
         {/* Sign Out Button */}
         <button
           onClick={handleLogout}
-          className="w-full mt-1.5 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+          className="w-full mt-1.5 flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
         >
           <LogOut size={14} />
           <span>Sign Out</span>
@@ -155,7 +155,7 @@ export default function Sidebar() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="fixed top-4 left-4 z-40 p-2.5 rounded-xl bg-white shadow-md md:hidden text-slate-800"
+        className="fixed top-4 left-4 z-40 p-2.5 rounded-xl bg-white shadow-md md:hidden text-slate-800 cursor-pointer"
         aria-label="Open Navigation"
       >
         <Menu size={20} />
@@ -164,7 +164,7 @@ export default function Sidebar() {
       {/* Mobile Drawer Backdrop */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 md:hidden bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-40 md:hidden bg-black/60 backdrop-blur-sm cursor-pointer"
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -177,7 +177,7 @@ export default function Sidebar() {
       >
         <button
           onClick={() => setMobileOpen(false)}
-          className="absolute top-4 right-4 p-1 text-slate-400 hover:text-white"
+          className="absolute top-4 right-4 p-1 text-slate-400 hover:text-white cursor-pointer"
         >
           <X size={20} />
         </button>

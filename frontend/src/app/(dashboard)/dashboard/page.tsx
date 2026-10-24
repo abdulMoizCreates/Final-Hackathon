@@ -28,6 +28,8 @@ export default function DashboardPage() {
   const [aiQuestion, setAiQuestion] = useState("");
   const [aiAnswer, setAiAnswer] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
+  const [chartPeriod, setChartPeriod] = useState("This Month");
+  const [chartMenuOpen, setChartMenuOpen] = useState(false);
 
   const handleCameraCheckIn = async () => {
     setCheckingIn(true);
@@ -62,7 +64,6 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             <span>Welcome back, {user?.name || "Ahmed"}!</span>
-            <span className="text-2xl">👋</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 font-normal mt-0.5">
             Here's what's happening in your organization today.
@@ -190,9 +191,34 @@ export default function DashboardPage() {
               <BarChart2 size={16} className="text-teal-600" />
               <span>Attendance Overview</span>
             </h3>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer hover:bg-slate-50">
-              <span>This Month</span>
-              <ChevronDown size={14} className="text-slate-400" />
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setChartMenuOpen(!chartMenuOpen)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer hover:bg-slate-50 transition-colors"
+              >
+                <span>{chartPeriod}</span>
+                <ChevronDown size={14} className="text-slate-400" />
+              </button>
+
+              {chartMenuOpen && (
+                <div className="absolute right-0 top-9 w-32 bg-white rounded-xl shadow-xl border border-slate-100 p-1 z-30">
+                  {["This Month", "Last Month", "This Year"].map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => {
+                        setChartPeriod(p);
+                        setChartMenuOpen(false);
+                      }}
+                      className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-colors ${
+                        chartPeriod === p ? "bg-teal-50 text-teal-800 font-bold" : "text-slate-600 hover:bg-slate-50"
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -455,7 +481,7 @@ export default function DashboardPage() {
             <button
               type="submit"
               disabled={aiLoading}
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-teal-400 text-slate-950 hover:bg-teal-300 transition-colors"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-teal-400 text-slate-950 hover:bg-teal-300 transition-colors cursor-pointer disabled:opacity-50"
             >
               <Send size={13} />
             </button>
