@@ -170,7 +170,7 @@ function LoginForm() {
 
         {/* Footer info */}
         <div className="relative z-10 flex items-center justify-between text-xs" style={{ color: "var(--sidebar-ink-2)" }}>
-          <span>Saylani Hackathon 2026</span>
+          <span>HCM Lite — Enterprise Edition</span>
           <span className="font-mono text-[11px]">v1.0.0</span>
         </div>
       </div>

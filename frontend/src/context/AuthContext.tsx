@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, ReactNode, useState, useEffect } from "react";
+import { createContext, useContext, ReactNode, useState } from "react";
 import { useMe, useLogin, useRegister, useLogout } from "@/api/queries";
 import type { User } from "@/api/auth";
 
@@ -25,14 +25,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const registerMutation = useRegister();
   const logoutMutation = useLogout();
 
-  const [activeRole, setActiveRole] = useState<UserRole>("Admin");
-
-  useEffect(() => {
-    const savedRole = localStorage.getItem("demoActiveRole") as UserRole;
-    if (savedRole && ["Admin", "HR", "Employee"].includes(savedRole)) {
-      setActiveRole(savedRole);
+  const [activeRole, setActiveRole] = useState<UserRole>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("demoActiveRole") as UserRole;
+      if (saved && ["Admin", "HR", "Employee"].includes(saved)) return saved;
     }
-  }, []);
+    return "Admin";
+  });
 
   const switchRole = (newRole: UserRole) => {
     setActiveRole(newRole);

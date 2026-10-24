@@ -45,15 +45,15 @@ export default function AnnouncementsPage() {
         setAnnouncements([
           {
             _id: "1",
-            title: "📢 Official Welcome: 2026 Saylani Hackathon Finals",
-            body: "Welcome to all participants joining us at Zaitoon Ashraf IT Park today. The HCM Lite system is officially operational for evaluation. Remember to log your biometric face check-ins upon arrival!",
+            title: "Team Welcome: Q4 2026 Operations",
+            body: "Welcome to all new team members joining us this quarter. The HCM Lite system is officially operational for your organization. Please complete your biometric check-in setup at the earliest.",
             authorName: "HR Directorate",
             date: "24 Oct 2026",
             pinned: true,
           },
           {
             _id: "2",
-            title: "🎉 Flexible Shift & Punctuality Policy Update",
+            title: "Flexible Shift & Punctuality Policy Update",
             body: "A reminder that a 15-minute grace period applies to all morning shifts. Check-ins before 09:15 AM are counted as on-time. Let's keep our team attendance benchmark above 95%!",
             authorName: "Operations Team",
             date: "20 Oct 2026",

@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   BarChart2,
   TrendingUp,
@@ -18,6 +19,7 @@ import {
 
 export default function AnalyticsPage() {
   const { user } = useAuth();
+  const router = useRouter();
   const [timeframe, setTimeframe] = useState("30");
 
   const depts = [
@@ -53,7 +55,7 @@ export default function AnalyticsPage() {
 
           <button
             onClick={() => window.print()}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold shadow-sm transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold shadow-sm transition-all cursor-pointer"
           >
             <Download size={14} />
             <span>Export Report</span>
@@ -63,48 +65,48 @@ export default function AnalyticsPage() {
 
       {/* ──────────────── KPI Summary Strip ──────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-[#E6F4F1] p-4 rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-semibold text-teal-800 uppercase tracking-wider">Total Headcount</p>
-            <span className="flex items-center text-[10px] font-bold text-teal-700 bg-teal-100/80 px-1.5 py-0.5 rounded-md">
+        <div className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Headcount</p>
+            <span className="flex items-center text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md">
               <ArrowUpRight size={12} /> +4.2%
             </span>
           </div>
-          <p className="text-2xl font-bold text-teal-900 mt-1.5">50</p>
-          <p className="text-[10px] text-teal-700 mt-1">Across 5 active departments</p>
+          <p className="text-2xl font-bold text-slate-900">50</p>
+          <p className="text-[11px] text-slate-400 mt-1">Across 5 departments</p>
         </div>
 
-        <div className="bg-[#FAF0E6] p-4 rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-semibold text-amber-800 uppercase tracking-wider">Attendance Rate</p>
-            <span className="flex items-center text-[10px] font-bold text-amber-700 bg-amber-100/80 px-1.5 py-0.5 rounded-md">
+        <div className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Attendance Rate</p>
+            <span className="flex items-center text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md">
               <ArrowUpRight size={12} /> +1.5%
             </span>
           </div>
-          <p className="text-2xl font-bold text-amber-900 mt-1.5">94.2%</p>
-          <p className="text-[10px] text-amber-700 mt-1">3.1% unexcused absences</p>
+          <p className="text-2xl font-bold text-slate-900">94.2%</p>
+          <p className="text-[11px] text-slate-400 mt-1">3.1% unexcused absences</p>
         </div>
 
-        <div className="bg-[#FBE8E8] p-4 rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-semibold text-rose-800 uppercase tracking-wider">Leave Utilization</p>
-            <span className="flex items-center text-[10px] font-bold text-rose-700 bg-rose-100/80 px-1.5 py-0.5 rounded-md">
+        <div className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Leave Utilization</p>
+            <span className="flex items-center text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded-md">
               <ArrowDownRight size={12} /> -0.8%
             </span>
           </div>
-          <p className="text-2xl font-bold text-rose-900 mt-1.5">12.8%</p>
-          <p className="text-[10px] text-rose-700 mt-1">Average 1.8 days / month</p>
+          <p className="text-2xl font-bold text-slate-900">12.8%</p>
+          <p className="text-[11px] text-slate-400 mt-1">Avg 1.8 days / month</p>
         </div>
 
-        <div className="bg-[#E8F1FB] p-4 rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-semibold text-sky-800 uppercase tracking-wider">Average Salary</p>
-            <span className="flex items-center text-[10px] font-bold text-sky-700 bg-sky-100/80 px-1.5 py-0.5 rounded-md">
+        <div className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Avg Salary</p>
+            <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-md">
               Stable
             </span>
           </div>
-          <p className="text-2xl font-bold text-sky-900 mt-1.5">Rs. 82.5k</p>
-          <p className="text-[10px] text-sky-700 mt-1">Annual payroll: Rs. 49.5M</p>
+          <p className="text-2xl font-bold text-slate-900">Rs. 82.5k</p>
+          <p className="text-[11px] text-slate-400 mt-1">Annual payroll: Rs. 49.5M</p>
         </div>
       </div>
 
@@ -244,8 +246,8 @@ export default function AnalyticsPage() {
         </div>
 
         <button
-          onClick={() => (window.location.href = "/assistant")}
-          className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold shadow-md whitespace-nowrap transition-all self-start sm:self-auto"
+          onClick={() => router.push("/assistant")}
+          className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold shadow-md whitespace-nowrap transition-all self-start sm:self-auto cursor-pointer"
         >
           Ask AI HR Copilot →
         </button>

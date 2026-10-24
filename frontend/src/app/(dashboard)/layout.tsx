@@ -51,8 +51,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Right Main Body */}
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Top Bar matching Image 1 */}
-          <header className="sticky top-0 z-20 bg-white/90 backdrop-blur-md px-6 lg:px-10 py-3.5 flex items-center justify-between shadow-sm">
+          {/* Top Bar */}
+          <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-100 px-6 lg:px-8 py-3 flex items-center justify-between" style={{ boxShadow: "var(--shadow-subtle)" }}>
             {/* Search Bar */}
             <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md hidden sm:block">
               <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />

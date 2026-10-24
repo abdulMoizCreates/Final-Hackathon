@@ -1,56 +1,58 @@
 :root {
-  /* Brand Theme from UI Mockup */
-  --canvas: #F8FAFC;
+  /* ── Canvas & Surface ── */
+  --canvas: #F6F8FA;
   --surface: #FFFFFF;
-  --sunken: #F1F5F9;
-  
-  --ink: #0F172A;
-  --ink-2: #334155;
-  --ink-3: #64748B;
-  --ink-4: #94A3B8;
+  --sunken: #F0F2F5;
 
-  --sidebar: #0C1A1C;
-  --sidebar-active: #0F3F3F;
-  --sidebar-ink: #F8FAFC;
-  --sidebar-ink-2: #8E9FA3;
+  /* ── Typography ── */
+  --ink: #0D1117;
+  --ink-2: #24292F;
+  --ink-3: #57606A;
+  --ink-4: #8C959F;
 
-  --teal-primary: #10B981;
-  --teal-dark: #0D9488;
-  --teal-light: #CCFBF1;
-  
-  /* KPI Tinted Card Colors from Mockup */
-  --kpi-mint-bg: #E7FAF4;
-  --kpi-mint-fg: #059669;
-  --kpi-mint-border: #A7F3D0;
+  /* ── Sidebar ── */
+  --sidebar: #0B181A;
+  --sidebar-active: #0F3A3A;
+  --sidebar-ink: #E6EDF3;
+  --sidebar-ink-2: #7D8590;
 
-  --kpi-coral-bg: #FFF1F0;
-  --kpi-coral-fg: #E11D48;
-  --kpi-coral-border: #FECDD3;
+  /* ── Brand Primary (Teal) ── */
+  --primary: #0D9488;
+  --primary-hover: #0F766E;
+  --primary-soft: #CCFBF1;
+  --primary-light: #CCFBF1;
+  --on-primary: #FFFFFF;
+  --highlight: #F2B01E;
 
-  --kpi-purple-bg: #F3EEFF;
-  --kpi-purple-fg: #7C3AED;
-  --kpi-purple-border: #DDD6FE;
+  /* ── KPI Card Accents ── */
+  --kpi-mint-bg: #F0FDF9;
+  --kpi-mint-fg: #047857;
+  --kpi-coral-bg: #FFF5F5;
+  --kpi-coral-fg: #C53030;
+  --kpi-purple-bg: #F5F3FF;
+  --kpi-purple-fg: #6D28D9;
+  --kpi-cyan-bg: #EFF6FF;
+  --kpi-cyan-fg: #1D4ED8;
 
-  --kpi-cyan-bg: #EBF8FF;
-  --kpi-cyan-fg: #0284C7;
-  --kpi-cyan-border: #BAE6FD;
-
-  /* Status Badges */
-  --st-present-bg: #DCFCE7;
-  --st-present-fg: #15803D;
+  /* ── Status Badges ── */
+  --st-present-bg: #D1FAE5;
+  --st-present-fg: #065F46;
   --st-late-bg: #FEF3C7;
-  --st-late-fg: #B45309;
+  --st-late-fg: #92400E;
   --st-absent-bg: #FEE2E2;
-  --st-absent-fg: #B91C1C;
-  --st-leave-bg: #E0E7FF;
-  --st-leave-fg: #4338CA;
+  --st-absent-fg: #991B1B;
+  --st-leave-bg: #EDE9FE;
+  --st-leave-fg: #4C1D95;
   --st-pending-bg: #FEF9C3;
-  --st-pending-fg: #A16207;
+  --st-pending-fg: #713F12;
 
-  /* Elevation Shadows */
-  --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
-  --shadow-hover: 0 10px 25px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
+  /* ── Elevation Shadows (soft, premium) ── */
+  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-panel: 0 8px 24px -4px rgba(0, 0, 0, 0.10), 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+  --shadow-soft: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.06);
 
+  /* ── Font ── */
   --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }

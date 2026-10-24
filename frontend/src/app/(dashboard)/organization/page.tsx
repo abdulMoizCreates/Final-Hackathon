@@ -29,12 +29,12 @@ export default function OrganizationPage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const [settings, setSettings] = useState({
-    companyName: "Saylani Tech Solutions",
+    companyName: "Nexus Enterprise Technologies",
     registrationNo: "PK-REG-2026-9901",
     timezone: "Asia/Karachi (PKT +05:00)",
     currency: "PKR (₨)",
-    address: "Zaitoon Ashraf IT Park, Karachi, Pakistan",
-    email: "hr@saylanitech.com",
+    address: "Tech Central Tower, Shahrah-e-Faisal, Karachi, Pakistan",
+    email: "hr@nexustech.com",
     phone: "+92 21 111 729 526",
     officeStart: "09:00",
     officeEnd: "18:00",

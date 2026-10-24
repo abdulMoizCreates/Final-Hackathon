@@ -11,9 +11,9 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col font-sans" style={{ background: "var(--canvas)", color: "var(--ink)" }}>
       {/* Top Navigation */}
-      <header className="px-6 sm:px-12 py-4 flex items-center justify-between shadow-soft backdrop-blur-md sticky top-0 z-40" style={{ background: "rgba(255, 255, 255, 0.85)" }}>
+      <header className="px-6 sm:px-12 py-4 flex items-center justify-between backdrop-blur-md sticky top-0 z-40 border-b border-slate-100" style={{ background: "rgba(255, 255, 255, 0.95)", boxShadow: "var(--shadow-subtle)" }}>
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center shadow-soft" style={{ background: "var(--primary)" }}>
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "var(--primary)", boxShadow: "0 2px 8px rgba(13,148,136,0.3)" }}>
             <div className="w-4 h-0.5 rounded bg-white relative">
               <div className="absolute w-2 h-2 rounded-full -top-[3px] left-1" style={{ background: "var(--highlight)" }} />
             </div>
@@ -25,7 +25,7 @@ export default function Home() {
           {user ? (
             <Link
               href="/dashboard"
-              className="px-4 py-2 rounded-xl text-xs font-semibold shadow-soft hover:opacity-90 transition-opacity"
+              className="px-4 py-2 rounded-xl text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer"
               style={{ background: "var(--primary)", color: "var(--on-primary)" }}
             >
               Go to dashboard
@@ -34,14 +34,14 @@ export default function Home() {
             <>
               <Link
                 href="/login"
-                className="px-4 py-2 rounded-xl text-xs font-semibold hover:bg-black/5 transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-semibold hover:bg-black/5 transition-colors cursor-pointer"
                 style={{ color: "var(--ink)" }}
               >
                 Sign in
               </Link>
               <Link
                 href="/setup"
-                className="px-4 py-2 rounded-xl text-xs font-semibold shadow-soft hover:opacity-90 transition-opacity"
+                className="px-4 py-2 rounded-xl text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer"
                 style={{ background: "var(--primary)", color: "var(--on-primary)" }}
               >
                 Company setup
@@ -171,8 +171,8 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 text-center text-xs shadow-soft font-medium" style={{ background: "var(--surface)", color: "var(--ink-3)" }}>
-        HCM Lite · Built for the Saylani Hackathon, 24 October 2026
+      <footer className="py-8 text-center text-xs font-medium border-t border-slate-100" style={{ background: "var(--surface)", color: "var(--ink-3)" }}>
+        HCM Lite &mdash; Enterprise Human Capital Management Platform &copy; 2026
       </footer>
     </div>
   );

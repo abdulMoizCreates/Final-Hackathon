@@ -172,7 +172,7 @@ export default function AttendancePage() {
         <div className="flex items-center bg-white p-1 rounded-2xl shadow-sm self-start sm:self-auto">
           <button
             onClick={() => setActiveTab("board")}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "board"
                 ? "bg-teal-700 text-white shadow-sm"
                 : "text-slate-600 hover:text-slate-900"
@@ -182,7 +182,7 @@ export default function AttendancePage() {
           </button>
           <button
             onClick={() => setActiveTab("camera")}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
               activeTab === "camera"
                 ? "bg-teal-700 text-white shadow-sm"
                 : "text-slate-600 hover:text-slate-900"
@@ -193,7 +193,7 @@ export default function AttendancePage() {
           </button>
           <button
             onClick={() => setActiveTab("history")}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "history"
                 ? "bg-teal-700 text-white shadow-sm"
                 : "text-slate-600 hover:text-slate-900"
@@ -293,7 +293,7 @@ export default function AttendancePage() {
 
               <button
                 onClick={fetchAttendance}
-                className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-500 transition-colors"
+                className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-500 transition-colors cursor-pointer"
                 title="Refresh Records"
               >
                 <RefreshCw size={15} />
@@ -433,7 +433,7 @@ export default function AttendancePage() {
                 </p>
                 <button
                   onClick={startCamera}
-                  className="px-4 py-2 rounded-xl bg-teal-700 text-white text-xs font-semibold hover:bg-teal-800 transition-colors"
+                  className="px-4 py-2 rounded-xl bg-teal-700 text-white text-xs font-semibold hover:bg-teal-800 transition-colors cursor-pointer"
                 >
                   Enable Camera
                 </button>
@@ -479,7 +479,7 @@ export default function AttendancePage() {
             <button
               onClick={() => handleSimulatedCheckIn("in")}
               disabled={scanning}
-              className="py-3 px-4 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 text-white font-semibold text-xs shadow-md shadow-teal-900/15 hover:brightness-105 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="py-3 px-4 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 text-white font-semibold text-xs shadow-md shadow-teal-900/15 hover:brightness-105 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
             >
               <Scan size={16} />
               <span>{scanning ? "Verifying..." : "Clock In (Face ID)"}</span>
@@ -488,7 +488,7 @@ export default function AttendancePage() {
             <button
               onClick={() => handleSimulatedCheckIn("out")}
               disabled={scanning}
-              className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs shadow-md transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs shadow-md transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
             >
               <LogOut size={16} />
               <span>{scanning ? "Verifying..." : "Clock Out"}</span>

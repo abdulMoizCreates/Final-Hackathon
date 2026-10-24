@@ -30,7 +30,7 @@ export default function AssistantPage() {
     {
       id: "welcome",
       sender: "bot",
-      text: `Hello ${user?.name || "there"}! 👋 I am your **HCM Lite AI Assistant**.\n\nYou can ask me anything about attendance records, leave requests, company HR policies, or payroll summaries. How can I help you today?`,
+      text: `Hello ${user?.name || "there"}! I am your **HCM Lite AI Assistant**.\n\nYou can ask me anything about attendance records, leave requests, company HR policies, or payroll summaries. How can I help you today?`,
       time: "10:24 AM",
     },
   ]);
@@ -67,7 +67,7 @@ export default function AssistantPage() {
       // Connect to backend assistant controller
       const res = await api.post("/assistant/chat", {
         message: textToSend,
-        sessionId: "hackathon-session",
+        sessionId: "hcm-session",
       });
 
       const reply = res.data?.reply || res.data?.response || res.data?.text || generateSmartFallbackReply(textToSend);
@@ -101,16 +101,16 @@ export default function AssistantPage() {
       return "Currently, **1 employee** is on approved leave today:\n- **Ayesha Malik** (Finance) — Annual Leave until 25 Oct.\n\nThere are also **3 pending leave requests** from Bilal Tariq, Zainab Ali, and Hamza Sheikh waiting in the approvals tab.";
     }
     if (q.includes("attendance") || q.includes("present") || q.includes("summary")) {
-      return "📊 **Today's Attendance Summary (24 Oct 2026):**\n- **Present:** 42 employees (95.4% on-time)\n- **Late Arrivals:** 3 employees (within 15m grace window)\n- **On Leave:** 5 employees\n- **Total Headcount:** 50 employees\n\nPunctuality has increased by **2.4%** compared to the previous week.";
+      return "**Today's Attendance Summary:**\n- **Present:** 42 employees (95.4% on-time)\n- **Late Arrivals:** 3 employees (within 15m grace window)\n- **On Leave:** 5 employees\n- **Total Headcount:** 50 employees\n\nPunctuality has increased by **2.4%** compared to the previous week.";
     }
     if (q.includes("holiday") || q.includes("announcement") || q.includes("quaid")) {
-      return "Here is a drafted company announcement for you:\n\n**📢 Public Holiday Announcement: Quaid-e-Azam Day**\n\n*Dear Team,*\n\nPlease note that in observance of Quaid-e-Azam Day and Christmas, our offices will remain closed on **Wednesday, 25th December 2026**. Normal work shifts will resume on Thursday.\n\nWishing everyone a restful day!\n*— Human Resources Team*";
+      return "Here is a drafted company announcement for you:\n\n**Public Holiday Notice: Quaid-e-Azam Day**\n\n*Dear Team,*\n\nPlease note that in observance of Quaid-e-Azam Day and Christmas, our offices will remain closed on **Wednesday, 25th December 2026**. Normal work shifts will resume on Thursday.\n\nWishing everyone a restful day!\n*— Human Resources Team*";
     }
     if (q.includes("late") || q.includes("policy") || q.includes("grace")) {
-      return "🕒 **Company Shift & Grace Period Policy:**\n- **Standard Shift:** 09:00 AM – 06:00 PM (Monday to Friday)\n- **Grace Period:** 15 minutes (Arrivals between 09:01 – 09:15 AM are counted as on-time).\n- **Late Penalty:** 3 late arrivals in a calendar month result in a half-day salary deduction.\n- **Half-Day Threshold:** Check-ins after 01:00 PM are marked as Half-Day.";
+      return "**Company Shift & Grace Period Policy:**\n- **Standard Shift:** 09:00 AM – 06:00 PM (Monday to Friday)\n- **Grace Period:** 15 minutes (Arrivals between 09:01 – 09:15 AM are counted as on-time).\n- **Late Penalty:** 3 late arrivals in a calendar month result in a half-day salary deduction.\n- **Half-Day Threshold:** Check-ins after 01:00 PM are marked as Half-Day.";
     }
     if (q.includes("payroll") || q.includes("salary") || q.includes("net")) {
-      return "💰 **Payroll Calculation Rules:**\n- **Gross Salary** = Basic Pay (50%) + Medical Allowance (25%) + Conveyance Allowance (25%).\n- **Deductions** = Unpaid Leaves + Late Penalties.\n- **Net Disbursed** = Gross Salary - Deductions.\n- Current October 2026 Total Net Payroll is **Rs. 1,380,000**.";
+      return "**Payroll Calculation Rules:**\n- **Gross Salary** = Basic Pay (50%) + Medical Allowance (25%) + Conveyance Allowance (25%).\n- **Deductions** = Unpaid Leaves + Late Penalties.\n- **Net Disbursed** = Gross Salary - Deductions.\n- Current October 2026 Total Net Payroll is **Rs. 1,380,000**.";
     }
     return `Regarding your inquiry: "${query}"\n\nI have cross-checked our company database. All relevant records under HCM Lite comply with your organizational policies. Would you like me to generate a formal summary or notify the HR department?`;
   };
@@ -130,7 +130,7 @@ export default function AssistantPage() {
   ];
 
   return (
-    <div className="h-[calc(100vh-140px)] flex flex-col space-y-4">
+    <div className="h-[calc(100vh-140px)] flex flex-col space-y-4 font-sans">
       {/* ──────────────── Top Header Bar ──────────────── */}
       <div className="flex items-center justify-between bg-white px-6 py-4 rounded-2xl shadow-sm">
         <div className="flex items-center gap-3">
@@ -139,18 +139,18 @@ export default function AssistantPage() {
           </div>
           <div>
             <h1 className="text-base font-bold text-slate-900">AI HR Copilot</h1>
-            <p className="text-xs text-slate-400">Powered by Google Gemini 2.5 Flash</p>
+            <p className="text-xs text-slate-400">Powered by Enterprise AI</p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Model Ready
+            Operational
           </span>
           <button
             onClick={() => setMessages([messages[0]])}
-            className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
             title="Clear Chat History"
           >
             <RefreshCw size={16} />
@@ -190,7 +190,7 @@ export default function AssistantPage() {
                   {isBot && (
                     <button
                       onClick={() => handleCopy(msg.id, msg.text)}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-slate-700"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-slate-700 cursor-pointer"
                       title="Copy text"
                     >
                       {copiedId === msg.id ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
@@ -229,7 +229,7 @@ export default function AssistantPage() {
           <button
             key={idx}
             onClick={() => handleSend(s)}
-            className="px-3 py-1.5 rounded-full bg-white hover:bg-teal-50 hover:text-teal-800 text-slate-600 text-xs font-medium shadow-sm border border-slate-100 whitespace-nowrap transition-all"
+            className="px-3 py-1.5 rounded-full bg-white hover:bg-teal-50 hover:text-teal-800 text-slate-600 text-xs font-medium shadow-sm border border-slate-100 whitespace-nowrap transition-all cursor-pointer"
           >
             {s}
           </button>
@@ -250,7 +250,7 @@ export default function AssistantPage() {
         <button
           onClick={() => handleSend()}
           disabled={!input.trim() || loading}
-          className="p-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white transition-all disabled:opacity-40 disabled:hover:bg-teal-700 shadow-md shadow-teal-900/10"
+          className="p-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white transition-all disabled:opacity-40 disabled:hover:bg-teal-700 shadow-md shadow-teal-900/10 cursor-pointer"
         >
           <Send size={16} />
         </button>

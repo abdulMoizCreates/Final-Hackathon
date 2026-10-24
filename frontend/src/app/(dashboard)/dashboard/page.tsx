@@ -58,160 +58,117 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-6 font-sans">
-      {/* ──────────────── Top Welcome Header ──────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div className="space-y-7">
+      {/* ──────────────── Welcome Header ──────────────── */}
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <span>Welcome back, {user?.name || "Ahmed"}!</span>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">Overview</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+            Welcome back, {user?.name?.split(" ")[0] || "Ahmed"}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-normal mt-0.5">
-            Here's what's happening in your organization today.
+          <p className="text-sm text-slate-500 font-normal mt-1">
+            Here&apos;s what&apos;s happening in your organization today.
           </p>
         </div>
       </div>
 
-      {/* ──────────────── 4 Pastel KPI Cards with Waves from Mockup ──────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        {/* Card 1: Present Today (Mint) */}
-        <div className="rounded-2xl p-5 bg-[#E7FAF4] border border-[#A7F3D0]/50 shadow-sm flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md">
+      {/* ──────────────── 4 KPI Cards ──────────────── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Present Today */}
+        <div className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center text-emerald-600">
-              <Users size={20} />
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+              <Users size={18} />
             </div>
+            <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">+2%</span>
           </div>
-          <div className="mt-4 flex items-end justify-between">
-            <div>
-              <p className="text-3xl font-extrabold text-slate-900 tabular-nums">42</p>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs font-semibold text-slate-700">Present Today</span>
-                <span className="text-[11px] font-bold text-emerald-600">↑ +2%</span>
-              </div>
-            </div>
-            {/* SVG Wave Sparkline */}
-            <svg className="w-24 h-10 text-emerald-500" viewBox="0 0 100 40" fill="none">
-              <path
-                d="M0 30 C 20 30, 30 15, 50 20 C 70 25, 80 5, 100 15"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-            </svg>
+          <div className="mt-5">
+            <p className="text-3xl font-bold text-slate-900 tabular-nums">42</p>
+            <p className="text-xs font-medium text-slate-500 mt-1">Present Today</p>
           </div>
+          <svg className="w-full h-8 mt-4 text-emerald-400" viewBox="0 0 100 32" fill="none" preserveAspectRatio="none">
+            <path d="M0 28 C 20 28, 30 12, 50 16 C 70 20, 80 4, 100 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+          </svg>
         </div>
 
-        {/* Card 2: On Leave (Coral) */}
-        <div className="rounded-2xl p-5 bg-[#FFF1F0] border border-[#FECDD3]/50 shadow-sm flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md">
+        {/* On Leave */}
+        <div className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between">
-            <div className="w-10 h-10 rounded-xl bg-rose-500/15 flex items-center justify-center text-rose-600">
-              <Calendar size={20} />
+            <div className="w-9 h-9 rounded-xl bg-rose-50 flex items-center justify-center text-rose-500">
+              <Calendar size={18} />
             </div>
+            <span className="text-[11px] font-bold text-rose-500 bg-rose-50 px-2 py-0.5 rounded-full">-1%</span>
           </div>
-          <div className="mt-4 flex items-end justify-between">
-            <div>
-              <p className="text-3xl font-extrabold text-slate-900 tabular-nums">5</p>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs font-semibold text-slate-700">On Leave</span>
-                <span className="text-[11px] font-bold text-rose-500">↓ -1%</span>
-              </div>
-            </div>
-            {/* SVG Wave Sparkline */}
-            <svg className="w-24 h-10 text-rose-400" viewBox="0 0 100 40" fill="none">
-              <path
-                d="M0 20 C 20 20, 40 35, 60 25 C 80 15, 90 28, 100 22"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-            </svg>
+          <div className="mt-5">
+            <p className="text-3xl font-bold text-slate-900 tabular-nums">5</p>
+            <p className="text-xs font-medium text-slate-500 mt-1">On Leave</p>
           </div>
+          <svg className="w-full h-8 mt-4 text-rose-300" viewBox="0 0 100 32" fill="none" preserveAspectRatio="none">
+            <path d="M0 16 C 20 16, 40 28, 60 20 C 80 12, 90 24, 100 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+          </svg>
         </div>
 
-        {/* Card 3: Late Today (Purple) */}
-        <div className="rounded-2xl p-5 bg-[#F3EEFF] border border-[#DDD6FE]/50 shadow-sm flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md">
+        {/* Late Today */}
+        <div className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between">
-            <div className="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center text-purple-600">
-              <Clock size={20} />
+            <div className="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
+              <Clock size={18} />
             </div>
+            <span className="text-[11px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">-0.5%</span>
           </div>
-          <div className="mt-4 flex items-end justify-between">
-            <div>
-              <p className="text-3xl font-extrabold text-slate-900 tabular-nums">3</p>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs font-semibold text-slate-700">Late Today</span>
-                <span className="text-[11px] font-bold text-purple-600">↓ -0.5%</span>
-              </div>
-            </div>
-            {/* SVG Wave Sparkline */}
-            <svg className="w-24 h-10 text-purple-500" viewBox="0 0 100 40" fill="none">
-              <path
-                d="M0 25 C 25 35, 45 10, 70 30 C 85 40, 95 18, 100 20"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-            </svg>
+          <div className="mt-5">
+            <p className="text-3xl font-bold text-slate-900 tabular-nums">3</p>
+            <p className="text-xs font-medium text-slate-500 mt-1">Late Arrivals</p>
           </div>
+          <svg className="w-full h-8 mt-4 text-amber-300" viewBox="0 0 100 32" fill="none" preserveAspectRatio="none">
+            <path d="M0 20 C 25 28, 45 8, 70 24 C 85 32, 95 14, 100 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+          </svg>
         </div>
 
-        {/* Card 4: Attendance Rate (Cyan) */}
-        <div className="rounded-2xl p-5 bg-[#EBF8FF] border border-[#BAE6FD]/50 shadow-sm flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md">
+        {/* Attendance Rate */}
+        <div className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between">
-            <div className="w-10 h-10 rounded-xl bg-sky-500/15 flex items-center justify-center text-sky-600">
-              <Briefcase size={20} />
+            <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600">
+              <Briefcase size={18} />
             </div>
+            <span className="text-[11px] font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full">+1%</span>
           </div>
-          <div className="mt-4 flex items-end justify-between">
-            <div>
-              <p className="text-3xl font-extrabold text-slate-900 tabular-nums">96%</p>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs font-semibold text-slate-700">Attendance Rate</span>
-                <span className="text-[11px] font-bold text-sky-600">↑ +1%</span>
-              </div>
-            </div>
-            {/* SVG Wave Sparkline */}
-            <svg className="w-24 h-10 text-sky-500" viewBox="0 0 100 40" fill="none">
-              <path
-                d="M0 30 C 20 20, 40 32, 60 12 C 80 20, 90 8, 100 15"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-            </svg>
+          <div className="mt-5">
+            <p className="text-3xl font-bold text-slate-900 tabular-nums">96%</p>
+            <p className="text-xs font-medium text-slate-500 mt-1">Attendance Rate</p>
           </div>
+          <svg className="w-full h-8 mt-4 text-teal-400" viewBox="0 0 100 32" fill="none" preserveAspectRatio="none">
+            <path d="M0 24 C 20 16, 40 26, 60 10 C 80 16, 90 6, 100 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+          </svg>
         </div>
       </div>
 
-      {/* ──────────────── Middle Row: Attendance Chart + Department Donut + Camera Check-in ──────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-        {/* Attendance Overview (Line + Area Curve Chart) - 5 Cols */}
-        <div className="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-              <BarChart2 size={16} className="text-teal-600" />
-              <span>Attendance Overview</span>
-            </h3>
+      {/* ──────────────── Middle Row ──────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {/* Attendance Chart — 5 cols */}
+        <div className="lg:col-span-5 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex items-center justify-between mb-5">
+            <div>
+              <h3 className="text-sm font-semibold text-slate-800">Attendance Overview</h3>
+              <p className="text-xs text-slate-400 mt-0.5">Monthly trend</p>
+            </div>
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setChartMenuOpen(!chartMenuOpen)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer hover:bg-slate-50 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-600 cursor-pointer transition-colors"
               >
                 <span>{chartPeriod}</span>
-                <ChevronDown size={14} className="text-slate-400" />
+                <ChevronDown size={13} className="text-slate-400" />
               </button>
-
               {chartMenuOpen && (
-                <div className="absolute right-0 top-9 w-32 bg-white rounded-xl shadow-xl border border-slate-100 p-1 z-30">
+                <div className="absolute right-0 top-9 w-36 bg-white rounded-xl p-1 z-30" style={{ boxShadow: "var(--shadow-panel)" }}>
                   {["This Month", "Last Month", "This Year"].map((p) => (
                     <button
                       key={p}
-                      onClick={() => {
-                        setChartPeriod(p);
-                        setChartMenuOpen(false);
-                      }}
-                      className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-colors ${
-                        chartPeriod === p ? "bg-teal-50 text-teal-800 font-bold" : "text-slate-600 hover:bg-slate-50"
+                      onClick={() => { setChartPeriod(p); setChartMenuOpen(false); }}
+                      className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-colors ${
+                        chartPeriod === p ? "bg-teal-50 text-teal-800 font-semibold" : "text-slate-600 hover:bg-slate-50"
                       }`}
                     >
                       {p}
@@ -222,192 +179,138 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Area Line Chart Rendering */}
-          <div className="relative h-52 w-full pt-4">
-            {/* Tooltip Badge */}
-            <div className="absolute top-2 right-12 bg-slate-900 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-lg">
-              42 Present
-            </div>
-
-            <svg className="w-full h-40 overflow-visible" viewBox="0 0 400 150">
+          <div className="relative flex-1 min-h-[160px]">
+            <svg className="w-full h-full overflow-visible" viewBox="0 0 400 150" preserveAspectRatio="none">
               <defs>
-                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.35" />
-                  <stop offset="100%" stopColor="#14B8A6" stopOpacity="0.0" />
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#0D9488" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="#0D9488" stopOpacity="0" />
                 </linearGradient>
               </defs>
-              {/* Grid Lines */}
-              <line x1="0" y1="30" x2="400" y2="30" stroke="#F1F5F9" strokeWidth="1" />
-              <line x1="0" y1="70" x2="400" y2="70" stroke="#F1F5F9" strokeWidth="1" />
-              <line x1="0" y1="110" x2="400" y2="110" stroke="#F1F5F9" strokeWidth="1" />
-              
-              {/* Filled Area */}
-              <path
-                d="M 20 110 Q 120 70 200 65 T 380 30 L 380 150 L 20 150 Z"
-                fill="url(#chartGradient)"
-              />
-              {/* Curve Stroke */}
-              <path
-                d="M 20 110 Q 120 70 200 65 T 380 30"
-                fill="none"
-                stroke="#0D9488"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-              {/* Points */}
-              <circle cx="20" cy="110" r="4.5" fill="#0D9488" stroke="#FFFFFF" strokeWidth="2" />
-              <circle cx="140" cy="72" r="4.5" fill="#0D9488" stroke="#FFFFFF" strokeWidth="2" />
-              <circle cx="260" cy="63" r="4.5" fill="#0D9488" stroke="#FFFFFF" strokeWidth="2" />
-              <circle cx="380" cy="30" r="5" fill="#0D9488" stroke="#FFFFFF" strokeWidth="2.5" />
+              <line x1="0" y1="30" x2="400" y2="30" stroke="#F0F2F5" strokeWidth="1" />
+              <line x1="0" y1="75" x2="400" y2="75" stroke="#F0F2F5" strokeWidth="1" />
+              <line x1="0" y1="120" x2="400" y2="120" stroke="#F0F2F5" strokeWidth="1" />
+              <path d="M 20 115 Q 120 72 200 68 T 380 32 L 380 150 L 20 150 Z" fill="url(#chartGrad)" />
+              <path d="M 20 115 Q 120 72 200 68 T 380 32" fill="none" stroke="#0D9488" strokeWidth="2.5" strokeLinecap="round" />
+              <circle cx="20" cy="115" r="4" fill="#0D9488" stroke="#fff" strokeWidth="2" />
+              <circle cx="140" cy="76" r="4" fill="#0D9488" stroke="#fff" strokeWidth="2" />
+              <circle cx="260" cy="66" r="4" fill="#0D9488" stroke="#fff" strokeWidth="2" />
+              <circle cx="380" cy="32" r="4.5" fill="#0D9488" stroke="#fff" strokeWidth="2" />
             </svg>
-
-            {/* X-Axis Labels */}
-            <div className="flex justify-between text-[11px] font-semibold text-slate-400 mt-2 px-3">
-              <span>W1</span>
-              <span>W2</span>
-              <span>W3</span>
-              <span>W4</span>
-            </div>
+          </div>
+          <div className="flex justify-between text-[11px] font-medium text-slate-400 mt-2">
+            <span>W1</span><span>W2</span><span>W3</span><span>W4</span>
           </div>
         </div>
 
-        {/* Department Overview (Donut Chart) - 4 Cols */}
-        <div className="lg:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between">
-          <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2 mb-4">
-            <Briefcase size={16} className="text-teal-600" />
-            <span>Department Overview</span>
-          </h3>
+        {/* Department Overview — 4 cols */}
+        <div className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+          <h3 className="text-sm font-semibold text-slate-800 mb-1">Department Overview</h3>
+          <p className="text-xs text-slate-400 mb-5">Headcount by team</p>
 
-          <div className="flex items-center justify-between gap-4 py-2">
-            {/* Donut Graphic */}
-            <div className="relative w-32 h-32 shrink-0 flex items-center justify-center">
+          <div className="flex items-center gap-5">
+            <div className="relative w-28 h-28 shrink-0">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="14" fill="none" stroke="#E2E8F0" strokeWidth="4.5" />
-                <circle cx="18" cy="18" r="14" fill="none" stroke="#0D9488" strokeWidth="4.5" strokeDasharray="40 100" strokeDashoffset="0" />
-                <circle cx="18" cy="18" r="14" fill="none" stroke="#0284C7" strokeWidth="4.5" strokeDasharray="25 100" strokeDashoffset="-40" />
-                <circle cx="18" cy="18" r="14" fill="none" stroke="#6366F1" strokeWidth="4.5" strokeDasharray="20 100" strokeDashoffset="-65" />
-                <circle cx="18" cy="18" r="14" fill="none" stroke="#CBD5E1" strokeWidth="4.5" strokeDasharray="15 100" strokeDashoffset="-85" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="#F0F2F5" strokeWidth="4" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="#0D9488" strokeWidth="4" strokeDasharray="40 100" strokeDashoffset="0" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="#3B82F6" strokeWidth="4" strokeDasharray="25 100" strokeDashoffset="-40" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="#8B5CF6" strokeWidth="4" strokeDasharray="20 100" strokeDashoffset="-65" />
+                <circle cx="18" cy="18" r="14" fill="none" stroke="#D0D7DE" strokeWidth="4" strokeDasharray="15 100" strokeDashoffset="-85" />
               </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                <span className="text-xl font-extrabold text-slate-900 leading-none">42</span>
-                <span className="text-[10px] text-slate-400 font-medium">Employees</span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-lg font-bold text-slate-900">42</span>
+                <span className="text-[10px] text-slate-400">Total</span>
               </div>
             </div>
 
-            {/* Department Breakdown Legend */}
-            <div className="space-y-2 text-xs flex-1">
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#0D9488]" /> Engineering
-                </span>
-                <span className="font-bold text-slate-800">40%</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7]" /> HR
-                </span>
-                <span className="font-bold text-slate-800">25%</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#6366F1]" /> Design
-                </span>
-                <span className="font-bold text-slate-800">20%</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1.5 text-slate-600 font-medium">
-                  <span className="w-2.5 h-2.5 rounded-full bg-slate-400" /> Others
-                </span>
-                <span className="font-bold text-slate-800">15%</span>
-              </div>
+            <div className="space-y-2.5 flex-1">
+              {[
+                { label: "Engineering", pct: "40%", color: "#0D9488" },
+                { label: "HR", pct: "25%", color: "#3B82F6" },
+                { label: "Design", pct: "20%", color: "#8B5CF6" },
+                { label: "Others", pct: "15%", color: "#D0D7DE" },
+              ].map(d => (
+                <div key={d.label} className="flex items-center justify-between">
+                  <span className="flex items-center gap-1.5 text-xs text-slate-600">
+                    <span className="w-2 h-2 rounded-full shrink-0" style={{ background: d.color }} />
+                    {d.label}
+                  </span>
+                  <span className="text-xs font-semibold text-slate-800">{d.pct}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Camera Check-in Card (Signature Mockup Widget) - 3 Cols */}
-        <div className="lg:col-span-3 bg-[#0B2125] text-white rounded-2xl p-5 shadow-lg flex flex-col justify-between">
+        {/* Camera Check-in — 3 cols */}
+        <div className="lg:col-span-3 bg-[#0B1E21] text-white rounded-2xl p-5 flex flex-col justify-between" style={{ boxShadow: "var(--shadow-panel)" }}>
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold tracking-tight flex items-center gap-1.5 text-white">
-              <Camera size={16} className="text-teal-400" /> Camera Check-in
+            <span className="text-xs font-semibold text-white flex items-center gap-1.5">
+              <Camera size={15} className="text-teal-400" />
+              Camera Check-in
             </span>
             <span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" /> Online
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Online
             </span>
           </div>
 
-          {/* Visual Camera Feed Simulator */}
-          <div className="relative my-3 rounded-xl overflow-hidden aspect-[4/3] bg-slate-900 border border-teal-500/20 flex items-center justify-center">
-            {/* Background Office Preview */}
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-40"
-              style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80')`
-              }}
-            />
-
-            {/* Simulated Face Bounding Box */}
-            <div className="relative z-10 flex flex-col items-center">
-              <div className="w-20 h-24 rounded-lg border-2 border-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                <div className="w-14 h-14 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                  <Users size={24} className="text-emerald-300" />
+          <div className="relative my-3 rounded-xl overflow-hidden aspect-[4/3] bg-slate-900/80 flex items-center justify-center">
+            <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80')` }} />
+            <div className="relative z-10 flex flex-col items-center gap-2">
+              <div className="w-16 h-20 rounded-lg border-2 border-emerald-400/80 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                  <Users size={20} className="text-emerald-300" />
                 </div>
               </div>
-              {/* Detected Badge */}
-              <div className="mt-2 px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-bold text-[10px] flex items-center gap-1 shadow-md">
-                <CheckCircle2 size={11} /> Face Detected
+              <div className="px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-semibold text-[10px] flex items-center gap-1">
+                <CheckCircle2 size={10} /> Face Detected
               </div>
             </div>
           </div>
 
-          {/* Check-in Action Button */}
           <button
             onClick={handleCameraCheckIn}
             disabled={checkingIn || cameraChecked}
-            className="w-full py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer disabled:opacity-75"
-            style={{
-              background: cameraChecked ? "#059669" : "#10B981",
-              color: "#022C22",
-            }}
+            className="w-full py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+            style={{ background: cameraChecked ? "#059669" : "#0D9488", color: "#fff" }}
           >
-            <Camera size={14} />
-            <span>{cameraChecked ? "Checked In Successfully!" : checkingIn ? "Processing Face..." : "Check In"}</span>
+            <Camera size={13} />
+            {cameraChecked ? "Checked In" : checkingIn ? "Processing..." : "Check In Now"}
           </button>
         </div>
       </div>
 
-      {/* ──────────────── Bottom Row: Upcoming Leaves + Recent Activity + AI Assistant ──────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-        {/* Upcoming Leaves (4 Cols) */}
-        <div className="lg:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-              <Calendar size={16} className="text-teal-600" />
-              <span>Upcoming Leaves</span>
-            </h3>
-            <Link href="/leave" className="text-xs font-bold text-teal-700 hover:underline flex items-center gap-1">
-              <span>View All</span>
-              <ArrowRight size={13} />
+      {/* ──────────────── Bottom Row ──────────────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        {/* Upcoming Leaves */}
+        <div className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-sm font-semibold text-slate-800">Upcoming Leaves</h3>
+            </div>
+            <Link href="/leave" className="text-xs font-semibold text-teal-700 hover:underline flex items-center gap-1">
+              View All <ArrowRight size={12} />
             </Link>
           </div>
 
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-slate-50 space-y-0.5">
             {[
-              { id: 1, name: "Sara Ahmed", type: "Casual Leave • 1 Day", date: "Today", pillBg: "bg-emerald-100 text-emerald-800" },
-              { id: 2, name: "Hamza Ali", type: "Sick Leave • 2 Days", date: "25 Oct", pillBg: "bg-sky-100 text-sky-800" },
-              { id: 3, name: "Ayesha Khan", type: "Casual Leave • 1 Day", date: "26 Oct", pillBg: "bg-sky-100 text-sky-800" },
+              { id: 1, name: "Sara Ahmed", type: "Casual Leave · 1 Day", date: "Today", color: "bg-emerald-100 text-emerald-700" },
+              { id: 2, name: "Hamza Ali", type: "Sick Leave · 2 Days", date: "25 Oct", color: "bg-slate-100 text-slate-600" },
+              { id: 3, name: "Ayesha Khan", type: "Casual Leave · 1 Day", date: "26 Oct", color: "bg-slate-100 text-slate-600" },
             ].map((item) => (
-              <div key={item.id} className="py-2.5 flex items-center justify-between">
+              <div key={item.id} className="py-3 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold text-slate-400 w-3">{item.id}</span>
-                  <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-700">
+                  <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-semibold text-slate-700 shrink-0">
                     {item.name[0]}
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-800 leading-tight">{item.name}</p>
-                    <p className="text-[11px] text-slate-400 font-medium">{item.type}</p>
+                    <p className="text-xs font-semibold text-slate-800 leading-tight">{item.name}</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5">{item.type}</p>
                   </div>
                 </div>
-                <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold ${item.pillBg}`}>
+                <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${item.color}`}>
                   {item.date}
                 </span>
               </div>
@@ -415,75 +318,67 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Recent Activity (4 Cols) */}
-        <div className="lg:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
-              <Clock size={16} className="text-teal-600" />
-              <span>Recent Activity</span>
-            </h3>
-            <Link href="/audit-log" className="text-xs font-bold text-teal-700 hover:underline flex items-center gap-1">
-              <span>View All</span>
-              <ArrowRight size={13} />
+        {/* Recent Activity */}
+        <div className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-semibold text-slate-800">Recent Activity</h3>
+            <Link href="/audit-log" className="text-xs font-semibold text-teal-700 hover:underline flex items-center gap-1">
+              View All <ArrowRight size={12} />
             </Link>
           </div>
 
           <div className="space-y-3">
             {[
-              { icon: <CheckCircle2 size={14} className="text-emerald-600" />, bg: "bg-emerald-50", text: "Attendance marked for Ahmed Khan", time: "2m ago" },
-              { icon: <Plane size={14} className="text-sky-600" />, bg: "bg-sky-50", text: "Leave approved for Sara Ahmed", time: "5m ago" },
-              { icon: <UserPlus size={14} className="text-purple-600" />, bg: "bg-purple-50", text: "New employee added: Usman Tariq", time: "12m ago" },
-              { icon: <DollarSign size={14} className="text-teal-600" />, bg: "bg-teal-50", text: "Payroll run completed for October", time: "1h ago" },
+              { icon: <CheckCircle2 size={13} className="text-emerald-600" />, bg: "bg-emerald-50", text: "Attendance marked for Ahmed Khan", time: "2m ago" },
+              { icon: <Plane size={13} className="text-sky-600" />, bg: "bg-sky-50", text: "Leave approved for Sara Ahmed", time: "5m ago" },
+              { icon: <UserPlus size={13} className="text-violet-600" />, bg: "bg-violet-50", text: "New employee: Usman Tariq added", time: "12m ago" },
+              { icon: <DollarSign size={13} className="text-teal-600" />, bg: "bg-teal-50", text: "Payroll run completed for October", time: "1h ago" },
             ].map((act, idx) => (
-              <div key={idx} className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className={`w-7 h-7 rounded-lg ${act.bg} flex items-center justify-center shrink-0`}>
-                    {act.icon}
-                  </div>
-                  <p className="text-xs font-medium text-slate-700 truncate">{act.text}</p>
+              <div key={idx} className="flex items-center gap-3">
+                <div className={`w-7 h-7 rounded-lg ${act.bg} flex items-center justify-center shrink-0`}>
+                  {act.icon}
                 </div>
-                <span className="text-[10px] text-slate-400 shrink-0 ml-2">{act.time}</span>
+                <p className="text-xs text-slate-700 flex-1 leading-snug">{act.text}</p>
+                <span className="text-[10px] text-slate-400 shrink-0 tabular-nums">{act.time}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* AI Assistant Card (4 Cols) */}
-        <div className="lg:col-span-4 bg-gradient-to-br from-[#0B2125] via-[#0E353B] to-[#124D55] text-white rounded-2xl p-6 shadow-lg flex flex-col justify-between">
+        {/* AI Assistant */}
+        <div className="lg:col-span-4 bg-[#0B1E21] text-white rounded-2xl p-6 flex flex-col justify-between" style={{ boxShadow: "var(--shadow-panel)" }}>
           <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <div className="w-6 h-6 rounded-lg bg-teal-400/20 flex items-center justify-center text-teal-300">
-                <Sparkles size={14} />
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-6 rounded-lg bg-teal-400/20 flex items-center justify-center">
+                <Sparkles size={13} className="text-teal-300" />
               </div>
-              <h3 className="text-sm font-bold text-white">AI Assistant</h3>
+              <h3 className="text-sm font-semibold text-white">AI Assistant</h3>
             </div>
-            <p className="text-xs text-teal-100/75 leading-relaxed">
-              Ask anything about your HR system...
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Ask anything about your HR data, attendance, or payroll.
             </p>
           </div>
 
-          {/* AI Reply Bubble if generated */}
           {aiAnswer && (
-            <div className="my-3 p-3 bg-white/10 rounded-xl text-xs text-teal-50 leading-relaxed border border-teal-400/20 animate-fadeIn">
+            <div className="my-3 p-3 bg-white/8 rounded-xl text-xs text-teal-50 leading-relaxed border border-white/10">
               {aiAnswer}
             </div>
           )}
 
-          {/* Input Box */}
           <form onSubmit={handleAiAsk} className="relative mt-4">
             <input
               type="text"
               value={aiQuestion}
               onChange={(e) => setAiQuestion(e.target.value)}
               placeholder="e.g. Who is on leave today?"
-              className="w-full pl-3.5 pr-10 py-2.5 bg-white/10 border border-white/15 rounded-xl text-xs text-white placeholder:text-teal-200/50 outline-none focus:ring-2 focus:ring-teal-400/40"
+              className="w-full pl-3.5 pr-10 py-2.5 bg-white/8 border border-white/12 rounded-xl text-xs text-white placeholder:text-slate-500 outline-none focus:ring-1 focus:ring-teal-500/40"
             />
             <button
               type="submit"
               disabled={aiLoading}
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-teal-400 text-slate-950 hover:bg-teal-300 transition-colors cursor-pointer disabled:opacity-50"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white transition-colors cursor-pointer disabled:opacity-50"
             >
-              <Send size={13} />
+              <Send size={12} />
             </button>
           </form>
         </div>

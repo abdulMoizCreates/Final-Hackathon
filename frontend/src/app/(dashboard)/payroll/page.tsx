@@ -142,14 +142,14 @@ export default function PayrollPage() {
                   <button
                     onClick={handleGenerateDraft}
                     disabled={generating}
-                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors disabled:opacity-50"
+                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors disabled:opacity-50 cursor-pointer"
                   >
                     {generating ? "Calculating..." : "Recalculate"}
                   </button>
                   <button
                     onClick={handleFinalize}
                     disabled={finalizing}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 text-white text-xs font-semibold shadow-md shadow-teal-900/10 hover:brightness-105 active:scale-[0.98] transition-all disabled:opacity-50"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 text-white text-xs font-semibold shadow-md shadow-teal-900/10 hover:brightness-105 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
                   >
                     <CheckCircle2 size={15} />
                     <span>{finalizing ? "Locking..." : "Finalize Payroll"}</span>
@@ -269,7 +269,7 @@ export default function PayrollPage() {
                   <td className="py-3.5 px-6 text-right">
                     <button
                       onClick={() => setSelectedPayslip(item)}
-                      className="px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-teal-50 hover:text-teal-800 text-slate-600 font-semibold text-[11px] transition-colors"
+                      className="px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-teal-50 hover:text-teal-800 text-slate-600 font-semibold text-[11px] transition-colors cursor-pointer"
                     >
                       View Slip
                     </button>
@@ -345,7 +345,7 @@ export default function PayrollPage() {
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
                 >
                   <Printer size={14} />
                   <span>Print Slip</span>
@@ -353,7 +353,7 @@ export default function PayrollPage() {
                 <button
                   type="button"
                   onClick={() => setSelectedPayslip(null)}
-                  className="px-4 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold transition-colors"
+                  className="px-4 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold transition-colors cursor-pointer"
                 >
                   Close
                 </button>
