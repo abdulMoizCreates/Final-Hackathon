@@ -22,7 +22,7 @@ Suggested time split: first 10 percent foundations and an early deploy, 45 perce
 | ID | Lane | Pri | Task | Acceptance | Status | Owner |
 |---|---|---|---|---|---|---|
 | T-001 | BE+FE | P0 | Scaffold monorepo: `apps/api` and `apps/web`, TypeScript strict, lint, scripts, `.env.example`, README stub | Both apps start with one command each; typecheck passes | todo | |
-| T-002 | FE | P0 | Design foundations: `tokens.css`, fonts, theme provider (light and dark), shadcn re-skin to tokens, app shell with sidebar and role nav config, shared components: PageHeader, EmptyState, ErrorState, Skeleton, StatusBadge, KpiStrip, DataTable, FilterBar | DESIGN sections 3 to 5 met; shell renders at 375, 768, 1280 in both themes; no hardcoded colors | todo | |
+| T-002 | FE | P0 | Design foundations: `tokens.css`, fonts, theme provider (light and dark), shadcn re-skin to tokens, app shell with sidebar and role nav config, shared components: PageHeader, EmptyState, ErrorState, Skeleton, StatusBadge, KpiStrip, DataTable, FilterBar | DESIGN sections 3 to 5 met; shell renders at 375, 768, 1280 in both themes; no hardcoded colors | in_progress | Antigravity | |
 | T-003 | BE | P0 | Backend foundations: `config/env.ts`, db connection, `AppError` and error middleware, `validate`, `authenticate`, `authorize`, `audit` and `notify` libs, `lib/dates.ts` and `lib/money.ts` with tests, pagination helper | ARCHITECTURE sections 4, 6; date and working-day tests pass | todo | |
 | T-004 | BE+FE | P0 | Early deploy of the skeleton: Atlas database, API host, Vercel web with `/api` rewrite, health endpoint | Hosted web calls hosted API through `/api/health`; cookie flow verified later in T-102 | todo | |
 

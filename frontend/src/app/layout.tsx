@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hackathon Starter",
-  description: "Next.js + Express Auth Starter",
+  title: "HCM Lite",
+  description: "Human capital management — attendance, leave and payroll that agree with each other",
 };
 
 export default function RootLayout({
@@ -29,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ background: "var(--canvas)" }}
       >
         <QueryProvider>
           <AuthProvider>
