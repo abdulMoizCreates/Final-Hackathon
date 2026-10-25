@@ -1,9 +1,9 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "installCommand": "npm install --prefix frontend",
-  "buildCommand": "npm --prefix frontend run build",
-  "outputDirectory": "frontend/.next",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
   "routes": [
     {
       "src": "/api/(.*)",
