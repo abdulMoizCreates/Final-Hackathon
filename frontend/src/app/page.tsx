@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import DayRail from "@/components/ui/DayRail";
-import { ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function Home() {
   const { user } = useAuth();

@@ -4,16 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import {
-  ShieldCheck,
-  Search,
-  Filter,
-  Clock,
-  User,
-  Activity,
-  Calendar,
-  CheckCircle2,
-  AlertTriangle,
-  Info
+  Search
 } from "lucide-react";
 
 interface AuditLog {
@@ -28,11 +19,11 @@ interface AuditLog {
 }
 
 export default function AuditLogPage() {
-  const { user, role, switchRole } = useAuth();
+  const { role, switchRole } = useAuth();
   const isAdmin = role === "Admin";
 
   const [logs, setLogs] = useState<AuditLog[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [actionFilter, setActionFilter] = useState("all");
 

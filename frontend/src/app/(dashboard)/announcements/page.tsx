@@ -4,12 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import {
-  Megaphone,
   Plus,
-  Send,
-  Calendar,
-  User,
-  Sparkles,
   Pin,
   CheckCircle2,
   X

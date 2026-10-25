@@ -4,13 +4,9 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import {
-  FileText,
   Printer,
-  Download,
   CheckCircle2,
-  Calendar,
-  X,
-  CreditCard
+  X
 } from "lucide-react";
 
 interface Payslip {
@@ -27,7 +23,7 @@ interface Payslip {
 export default function PayslipsPage() {
   const { user } = useAuth();
   const [payslips, setPayslips] = useState<Payslip[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [selectedSlip, setSelectedSlip] = useState<Payslip | null>(null);
 
   useEffect(() => {

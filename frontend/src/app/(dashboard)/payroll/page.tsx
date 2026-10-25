@@ -4,16 +4,9 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import {
-  BadgeDollarSign,
-  Calendar,
   CheckCircle2,
-  FileText,
   Printer,
-  X,
-  CreditCard,
-  TrendingUp,
-  Download,
-  AlertCircle
+  X
 } from "lucide-react";
 
 interface PayrollItem {
@@ -31,12 +24,12 @@ interface PayrollItem {
 }
 
 export default function PayrollPage() {
-  const { user, role } = useAuth();
+  const { role } = useAuth();
 
   const [selectedMonth, setSelectedMonth] = useState("2026-10");
   const [payrollStatus, setPayrollStatus] = useState<"draft" | "finalized">("draft");
   const [items, setItems] = useState<PayrollItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [finalizing, setFinalizing] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
@@ -108,7 +101,6 @@ export default function PayrollPage() {
     }
   };
 
-  const totalBasic = items.reduce((acc, i) => acc + i.basicSalary, 0);
   const totalAllowances = items.reduce((acc, i) => acc + i.allowances, 0);
   const totalDeductions = items.reduce((acc, i) => acc + i.deductions, 0);
   const totalNet = items.reduce((acc, i) => acc + i.netSalary, 0);

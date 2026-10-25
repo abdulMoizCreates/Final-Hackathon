@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Users,
   Calendar,
@@ -14,7 +14,6 @@ import {
   Send,
   Sparkles,
   ChevronDown,
-  BarChart2,
   DollarSign,
   ArrowRight
 } from "lucide-react";
@@ -22,7 +21,7 @@ import Link from "next/link";
 import api from "@/lib/api";
 
 export default function DashboardPage() {
-  const { user, role } = useAuth();
+  const { user } = useAuth();
   const [cameraChecked, setCameraChecked] = useState(false);
   const [checkingIn, setCheckingIn] = useState(false);
   const [aiQuestion, setAiQuestion] = useState("");

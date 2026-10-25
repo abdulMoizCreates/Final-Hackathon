@@ -4,15 +4,9 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import {
-  Users,
-  Shield,
   Plus,
-  Key,
   X,
-  CheckCircle2,
-  Lock,
-  Mail,
-  UserCheck
+  CheckCircle2
 } from "lucide-react";
 
 interface AppUser {
@@ -25,11 +19,11 @@ interface AppUser {
 }
 
 export default function UsersPage() {
-  const { user, role, switchRole } = useAuth();
+  const { role, switchRole } = useAuth();
   const isAdmin = role === "Admin";
 
   const [users, setUsers] = useState<AppUser[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({
     name: "",

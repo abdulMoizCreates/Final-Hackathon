@@ -1,24 +1,15 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import {
-  BarChart2,
-  TrendingUp,
-  Users,
-  Calendar,
   Sparkles,
   Download,
   ArrowUpRight,
-  ArrowDownRight,
-  CheckCircle2,
-  Clock,
-  PieChart
+  ArrowDownRight
 } from "lucide-react";
 
 export default function AnalyticsPage() {
-  const { user } = useAuth();
   const router = useRouter();
   const [timeframe, setTimeframe] = useState("30");
 

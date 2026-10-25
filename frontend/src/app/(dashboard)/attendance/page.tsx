@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState, useRef, useCallback } from "react";
 import api from "@/lib/api";
 import {
@@ -9,13 +8,11 @@ import {
   AlertCircle,
   Calendar as CalendarIcon,
   Search,
-  Filter,
   Camera,
   CheckCircle2,
   Scan,
   RefreshCw,
   LogOut,
-  ChevronRight,
   TrendingUp
 } from "lucide-react";
 
@@ -34,8 +31,6 @@ interface AttendanceRecord {
 }
 
 export default function AttendancePage() {
-  const { user, role } = useAuth();
-
   const [activeTab, setActiveTab] = useState<"board" | "camera" | "history">("board");
   const [date, setDate] = useState(() => new Date().toISOString().split("T")[0]);
   const [records, setRecords] = useState<AttendanceRecord[]>([]);

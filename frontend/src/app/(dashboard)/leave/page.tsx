@@ -4,18 +4,11 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import {
-  Calendar,
-  Clock,
   CheckCircle2,
-  XCircle,
   Plus,
   Sparkles,
-  AlertCircle,
-  User,
   X,
-  Send,
-  Check,
-  ChevronRight
+  Check
 } from "lucide-react";
 
 interface LeaveRequest {
@@ -39,7 +32,7 @@ export default function LeavePage() {
   const [myRequests, setMyRequests] = useState<LeaveRequest[]>([]);
   const [pendingApprovals, setPendingApprovals] = useState<LeaveRequest[]>([]);
   const [allRequests, setAllRequests] = useState<LeaveRequest[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   // Apply Leave Modal
   const [showModal, setShowModal] = useState(false);

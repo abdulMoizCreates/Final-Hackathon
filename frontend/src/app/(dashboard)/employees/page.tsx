@@ -3,7 +3,6 @@
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import api from "@/lib/api";
 import {
   Users,
@@ -11,16 +10,9 @@ import {
   UserX,
   Building2,
   Search,
-  Filter,
   Plus,
-  MoreVertical,
-  Mail,
-  Phone,
-  Briefcase,
-  Calendar,
   X,
-  CheckCircle2,
-  ChevronRight
+  CheckCircle2
 } from "lucide-react";
 
 interface Employee {
@@ -38,7 +30,7 @@ interface Employee {
 }
 
 export default function EmployeesPage() {
-  const { user, role } = useAuth();
+  const { role } = useAuth();
   const router = useRouter();
 
   const [employees, setEmployees] = useState<Employee[]>([]);

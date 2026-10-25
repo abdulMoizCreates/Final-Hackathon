@@ -9,24 +9,19 @@ import {
   Shield,
   Layers,
   CheckCircle2,
-  Plus,
   Trash2,
-  Save,
-  Globe,
-  MapPin,
-  Calendar,
-  Users
+  Save
 } from "lucide-react";
 
 export default function OrganizationPage() {
-  const { user, role } = useAuth();
+  const { role } = useAuth();
   const isAdmin = role === "Admin";
 
   const [activeTab, setActiveTab] = useState<"profile" | "departments" | "shifts" | "roles">("profile");
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [, setErrorMsg] = useState("");
 
   const [settings, setSettings] = useState({
     companyName: "Nexus Enterprise Technologies",

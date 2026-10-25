@@ -3,7 +3,7 @@
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Sidebar from "@/components/ui/Sidebar";
 import { useAuth, UserRole } from "@/context/AuthContext";
-import { Search, Calendar, Bell, ChevronDown, Check, CheckCircle2 } from "lucide-react";
+import { Search, Calendar, Bell, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [unreadCount, setUnreadCount] = useState(3);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [notifications, setNotifications] = useState([
+  const [notifications] = useState([
     { id: 1, title: "Leave Request Submitted", desc: "Sara Ahmed requested 1 day Casual Leave", time: "10m ago" },
     { id: 2, title: "Attendance Notice", desc: "3 late arrivals recorded within grace window", time: "45m ago" },
     { id: 3, title: "Payroll Ready", desc: "October payroll draft is ready for review", time: "2h ago" },

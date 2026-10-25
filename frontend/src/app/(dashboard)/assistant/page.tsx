@@ -6,7 +6,6 @@ import api from "@/lib/api";
 import {
   Sparkles,
   Send,
-  User,
   Bot,
   RefreshCw,
   Copy,
