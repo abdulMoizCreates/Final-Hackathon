@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "pnpm --prefix frontend run build",
+  "outputDirectory": "frontend/.next",
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://YOUR_BACKEND_URL/api/$1"
+    }
+  ]
+}
