@@ -2,10 +2,9 @@
   "name": "hcm-lite",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@10.34.8",
   "scripts": {
-    "dev": "pnpm --prefix frontend run dev",
-    "build": "pnpm --prefix frontend run build",
-    "start": "pnpm --prefix frontend run start"
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run start"
   }
 }
