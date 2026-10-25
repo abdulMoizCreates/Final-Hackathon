@@ -37,7 +37,6 @@ export default function AnnouncementsPage() {
   const [successMsg, setSuccessMsg] = useState("");
 
   const fetchAnnouncements = async () => {
-    setLoading(true);
     try {
       const res = await api.get("/announcements");
       const list = Array.isArray(res.data) ? res.data : res.data?.announcements || [];

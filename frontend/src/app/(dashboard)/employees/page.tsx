@@ -55,7 +55,7 @@ export default function EmployeesPage() {
     email: "",
     phone: "",
     gender: "male",
-    employeeCode: `EMP-${Math.floor(100 + Math.random() * 900)}`,
+    employeeCode: "",
     department: "",
     designation: "",
     basicSalary: "45000",
@@ -67,7 +67,6 @@ export default function EmployeesPage() {
 
   const fetchEmployees = async () => {
     try {
-      setLoading(true);
       const params = new URLSearchParams();
       if (search) params.set("search", search);
       if (selectedDept !== "all") params.set("department", selectedDept);
@@ -161,7 +160,13 @@ export default function EmployeesPage() {
 
         {role !== "Employee" && (
           <button
-            onClick={() => setShowAddModal(true)}
+            onClick={() => {
+              setFormData((prev) => ({
+                ...prev,
+                employeeCode: `EMP-${String(employees.length + 1).padStart(3, "0")}`,
+              }));
+              setShowAddModal(true);
+            }}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-teal-700 to-emerald-600 text-white text-xs font-semibold shadow-md shadow-teal-900/10 hover:brightness-105 active:scale-[0.98] transition-all self-start sm:self-auto cursor-pointer"
           >
             <Plus size={16} />

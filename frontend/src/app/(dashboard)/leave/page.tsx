@@ -55,7 +55,6 @@ export default function LeavePage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const fetchLeaveData = async () => {
-    setLoading(true);
     try {
       const [myRes, allRes] = await Promise.allSettled([
         api.get("/leave/my"),
@@ -305,7 +304,7 @@ export default function LeavePage() {
           {myRequests.length === 0 ? (
             <div className="p-12 text-center">
               <p className="text-sm font-semibold text-slate-700">No leave requests logged</p>
-              <p className="text-xs text-slate-400 mt-1">Click "Apply Leave" above to request time off.</p>
+              <p className="text-xs text-slate-400 mt-1">Click &quot;Apply Leave&quot; above to request time off.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">

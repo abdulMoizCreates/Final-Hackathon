@@ -42,7 +42,6 @@ export default function UsersPage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const fetchUsers = async () => {
-    setLoading(true);
     try {
       const res = await api.get("/users");
       const list = Array.isArray(res.data) ? res.data : res.data?.users || [];

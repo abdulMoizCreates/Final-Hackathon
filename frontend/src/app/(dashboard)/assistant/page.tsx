@@ -10,11 +10,7 @@ import {
   Bot,
   RefreshCw,
   Copy,
-  Check,
-  Calendar,
-  Clock,
-  Briefcase,
-  AlertCircle
+  Check
 } from "lucide-react";
 
 interface Message {
@@ -39,6 +35,7 @@ export default function AssistantPage() {
   const [loading, setLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const messageIdRef = useRef(0);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -53,7 +50,7 @@ export default function AssistantPage() {
     if (!textToSend.trim() || loading) return;
 
     const userMsg: Message = {
-      id: `u-${Date.now()}`,
+      id: `u-${++messageIdRef.current}`,
       sender: "user",
       text: textToSend,
       time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
@@ -73,7 +70,7 @@ export default function AssistantPage() {
       const reply = res.data?.reply || res.data?.response || res.data?.text || generateSmartFallbackReply(textToSend);
 
       const botMsg: Message = {
-        id: `b-${Date.now()}`,
+        id: `b-${++messageIdRef.current}`,
         sender: "bot",
         text: reply,
         time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
@@ -84,7 +81,7 @@ export default function AssistantPage() {
       // Intelligent fallback answer if Gemini key quota is reached
       const fallback = generateSmartFallbackReply(textToSend);
       const botMsg: Message = {
-        id: `b-${Date.now()}`,
+        id: `b-${++messageIdRef.current}`,
         sender: "bot",
         text: fallback,
         time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),

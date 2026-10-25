@@ -45,7 +45,6 @@ export default function PayrollPage() {
   const [selectedPayslip, setSelectedPayslip] = useState<PayrollItem | null>(null);
 
   const fetchPayroll = async () => {
-    setLoading(true);
     try {
       const res = await api.get(`/payroll?month=${selectedMonth}`);
       const data = res.data;

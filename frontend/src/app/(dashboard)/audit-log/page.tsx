@@ -37,7 +37,6 @@ export default function AuditLogPage() {
   const [actionFilter, setActionFilter] = useState("all");
 
   const fetchLogs = async () => {
-    setLoading(true);
     try {
       const res = await api.get("/audit-log");
       const list = Array.isArray(res.data) ? res.data : res.data?.logs || [];

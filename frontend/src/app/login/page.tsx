@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAuth, UserRole } from "@/context/AuthContext";
@@ -12,7 +12,9 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const { login, register, switchRole } = useAuth();
 
-  const [mode, setMode] = useState<"login" | "signup">("login");
+  const [mode, setMode] = useState<"login" | "signup">(() =>
+    searchParams?.get("mode") === "signup" ? "signup" : "login"
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -23,12 +25,6 @@ function LoginForm() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (searchParams?.get("mode") === "signup") {
-      setMode("signup");
-    }
-  }, [searchParams]);
 
   const handleDemoFill = (roleChoice: UserRole, demoEmail: string) => {
     switchRole(roleChoice);

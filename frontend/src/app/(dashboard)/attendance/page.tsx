@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import api from "@/lib/api";
 import {
   Clock,
@@ -51,7 +51,6 @@ export default function AttendancePage() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const fetchAttendance = async () => {
-    setLoading(true);
     try {
       const res = await api.get(`/attendance?date=${date}`);
       const list = Array.isArray(res.data) ? res.data : res.data?.records || [];
@@ -82,17 +81,7 @@ export default function AttendancePage() {
     fetchAttendance();
   }, [date]);
 
-  // Camera video stream handling
-  useEffect(() => {
-    if (activeTab === "camera") {
-      startCamera();
-    } else {
-      stopCamera();
-    }
-    return () => stopCamera();
-  }, [activeTab]);
-
-  const startCamera = async () => {
+  const startCamera = useCallback(async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
       if (videoRef.current) {
@@ -103,16 +92,26 @@ export default function AttendancePage() {
     } catch {
       setCameraActive(false);
     }
-  };
+  }, []);
 
-  const stopCamera = () => {
+  const stopCamera = useCallback(() => {
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach((track) => track.stop());
       videoRef.current.srcObject = null;
     }
     setCameraActive(false);
-  };
+  }, []);
+
+  // Camera video stream handling
+  useEffect(() => {
+    if (activeTab === "camera") {
+      void startCamera();
+    } else {
+      stopCamera();
+    }
+    return stopCamera;
+  }, [activeTab, startCamera, stopCamera]);
 
   const handleSimulatedCheckIn = async (type: "in" | "out") => {
     setScanning(true);
