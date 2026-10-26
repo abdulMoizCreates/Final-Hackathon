@@ -3,6 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { useState, useRef, useEffect } from "react";
 import { streamChat, assistantApi } from "@/api/assistant";
+import AssistantMarkdown from "@/components/chat/AssistantMarkdown";
 import {
   Sparkles,
   Send,
@@ -189,7 +190,11 @@ export default function AssistantPage() {
                     : "bg-teal-700 text-white shadow-md shadow-teal-900/10"
                 }`}
               >
-                <div className="whitespace-pre-wrap">{msg.text}</div>
+                {isBot ? (
+                  <AssistantMarkdown content={msg.text} />
+                ) : (
+                  <div className="whitespace-pre-wrap">{msg.text}</div>
+                )}
                 <div
                   className={`text-[10px] flex items-center justify-between pt-1 ${
                     isBot ? "text-slate-400" : "text-teal-200"

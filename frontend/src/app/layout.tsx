@@ -3,7 +3,6 @@ import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/api/QueryProvider";
 import { AuthProvider } from "@/context/AuthContext";
-import ChatWidget from "@/components/chat/ChatWidget";
 
 /* UI fallback — Inter variable, shown if the CDN font is unreachable */
 const inter = Inter({
@@ -43,7 +42,6 @@ export default function RootLayout({
         <QueryProvider>
           <AuthProvider>
             {children}
-            <ChatWidget />
           </AuthProvider>
         </QueryProvider>
       </body>
