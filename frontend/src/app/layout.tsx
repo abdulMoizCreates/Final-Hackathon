@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/api/QueryProvider";
 import { AuthProvider } from "@/context/AuthContext";
 import ChatWidget from "@/components/chat/ChatWidget";
 
-/* Display — geometric grotesque for headlines & brand (Space Grotesk, 300–700 variable) */
-const grotesk = Space_Grotesk({
-  variable: "--font-grotesk",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-/* UI & body — the clean, neutral workhorse (Inter variable) */
+/* UI fallback — Inter variable, shown if the CDN font is unreachable */
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -38,8 +31,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Inter Tight via cdnfonts — single variable-weight file (100–900) */}
+        <link rel="preconnect" href="https://fonts.cdnfonts.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/inter-tight" />
+      </head>
       <body
-        className={`${grotesk.variable} ${inter.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${geistMono.variable} antialiased`}
         style={{ background: "var(--canvas)" }}
       >
         <QueryProvider>

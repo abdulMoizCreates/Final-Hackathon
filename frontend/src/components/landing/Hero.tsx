@@ -16,6 +16,26 @@ const PROOF_CHIPS = [
 const HERO_LINES = ["Attendance, leave", "and payroll"];
 const HERO_LINE_MUTED = "that agree with each other.";
 
+/** Letter-by-letter split — words stay unbreakable, chars animate individually. */
+function SplitLine({ text }: { text: string }) {
+  return (
+    <span className="block">
+      {text.split(" ").map((word, wi, arr) => (
+        <span key={wi} className="inline-block whitespace-nowrap">
+          {Array.from(word).map((ch, ci) => (
+            <span key={ci} data-hero-char className="inline-block">
+              {ch}
+            </span>
+          ))}
+          {wi < arr.length - 1 && (
+            <span data-hero-char className="inline-block">&nbsp;</span>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export default function Hero() {
   const { user } = useAuth();
   const container = useRef<HTMLElement>(null);
@@ -29,11 +49,17 @@ export default function Hero() {
         const tl = gsap.timeline({ defaults: { ease: "expo.out" }, delay: 0.15 });
         tl.from("[data-hero-badge]", { y: 18, opacity: 0, duration: 0.7 })
           .from(
-            "[data-hero-line]",
-            { yPercent: 115, duration: 1.05, stagger: 0.1 },
+            "[data-hero-char]",
+            {
+              y: "0.45em",
+              opacity: 0,
+              duration: 0.65,
+              ease: "power3.out",
+              stagger: { each: 0.018 },
+            },
             "<0.1"
           )
-          .from("[data-hero-fade]", { y: 22, opacity: 0, duration: 0.8, stagger: 0.08 }, "<0.25")
+          .from("[data-hero-fade]", { y: 22, opacity: 0, duration: 0.8, stagger: 0.08 }, "<0.3")
           .from("[data-hero-mockup]", { y: 90, opacity: 0, duration: 1.1 }, "<0.2")
           .from("[data-float]", { opacity: 0, scale: 0.85, duration: 0.6, stagger: 0.12 }, "<0.4");
 
@@ -93,16 +119,18 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* Headline — masked line reveal */}
-        <h1 className="display-xl text-center mt-7 mx-auto max-w-4xl" style={{ color: "var(--ink)" }}>
-          {HERO_LINES.map((line) => (
-            <span key={line} className="block overflow-hidden pb-[0.09em] -mb-[0.09em]" aria-hidden={false}>
-              <span data-hero-line className="block">{line}</span>
-            </span>
-          ))}
-          <span className="block overflow-hidden pb-[0.09em] -mb-[0.09em]">
-            <span data-hero-line className="block" style={{ color: "var(--ink-3)" }}>
-              {HERO_LINE_MUTED}
+        {/* Headline — letter-by-letter fade-up (full text via aria-label for AT) */}
+        <h1
+          aria-label="Attendance, leave and payroll that agree with each other."
+          className="display-xl text-center mt-7 mx-auto max-w-4xl"
+          style={{ color: "var(--ink)" }}
+        >
+          <span aria-hidden="true">
+            {HERO_LINES.map((line) => (
+              <SplitLine key={line} text={line} />
+            ))}
+            <span className="block" style={{ color: "var(--ink-3)" }}>
+              <SplitLine text={HERO_LINE_MUTED} />
             </span>
           </span>
         </h1>

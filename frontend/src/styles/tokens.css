@@ -67,10 +67,9 @@
   --shadow-lift: 0 24px 48px -12px rgba(6, 20, 17, 0.18), 0 4px 12px -2px rgba(6, 20, 17, 0.08);
 
   /* ── Font stacks ──
-     Display: geometric grotesque for headlines & brand
-     Sans:    neutral UI/body workhorse
-     Mono:    timestamps, ids, tabular data            */
-  --font-display: var(--font-grotesk), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), var(--font-grotesk), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+     Display & body: Inter Tight (cdnfonts, variable wght) — Inter as offline fallback
+     Mono:           timestamps, ids, tabular data            */
+  --font-display: "Inter Tight", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Tight", var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }

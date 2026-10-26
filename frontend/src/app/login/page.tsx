@@ -83,6 +83,7 @@ function LoginForm() {
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-12 font-sans" style={{ background: "var(--canvas)" }}>
       {/* ──────────────── Left Showcase Panel (Spruce Brand Identity) ──────────────── */}
       <div
+        data-enter
         className="lg:col-span-5 p-8 lg:p-14 flex flex-col justify-between relative overflow-hidden"
         style={{
           background: "linear-gradient(175deg, #091A17 0%, #0F2420 50%, #153831 100%)",
@@ -174,6 +175,7 @@ function LoginForm() {
       {/* ──────────────── Right Form Panel ──────────────── */}
       <div className="lg:col-span-7 flex items-center justify-center p-6 sm:p-12 lg:p-16">
         <div
+          data-enter
           className="w-full max-w-md rounded-2xl p-8 sm:p-10 shadow-card space-y-6"
           style={{ background: "var(--surface)" }}
         >

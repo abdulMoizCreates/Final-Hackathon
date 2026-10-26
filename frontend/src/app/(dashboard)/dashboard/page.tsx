@@ -74,7 +74,7 @@ export default function DashboardPage() {
       {/* ──────────────── 4 KPI Cards ──────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Present Today */}
-        <div className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between">
             <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
               <Users size={18} />
@@ -86,12 +86,12 @@ export default function DashboardPage() {
             <p className="text-xs font-medium text-slate-500 mt-1">Present Today</p>
           </div>
           <svg className="w-full h-8 mt-4 text-emerald-400" viewBox="0 0 100 32" fill="none" preserveAspectRatio="none">
-            <path d="M0 28 C 20 28, 30 12, 50 16 C 70 20, 80 4, 100 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+            <path data-spark d="M0 28 C 20 28, 30 12, 50 16 C 70 20, 80 4, 100 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
           </svg>
         </div>
 
         {/* On Leave */}
-        <div className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between">
             <div className="w-9 h-9 rounded-xl bg-rose-50 flex items-center justify-center text-rose-500">
               <Calendar size={18} />
@@ -103,12 +103,12 @@ export default function DashboardPage() {
             <p className="text-xs font-medium text-slate-500 mt-1">On Leave</p>
           </div>
           <svg className="w-full h-8 mt-4 text-rose-300" viewBox="0 0 100 32" fill="none" preserveAspectRatio="none">
-            <path d="M0 16 C 20 16, 40 28, 60 20 C 80 12, 90 24, 100 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+            <path data-spark d="M0 16 C 20 16, 40 28, 60 20 C 80 12, 90 24, 100 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
           </svg>
         </div>
 
         {/* Late Today */}
-        <div className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between">
             <div className="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
               <Clock size={18} />
@@ -120,12 +120,12 @@ export default function DashboardPage() {
             <p className="text-xs font-medium text-slate-500 mt-1">Late Arrivals</p>
           </div>
           <svg className="w-full h-8 mt-4 text-amber-300" viewBox="0 0 100 32" fill="none" preserveAspectRatio="none">
-            <path d="M0 20 C 25 28, 45 8, 70 24 C 85 32, 95 14, 100 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+            <path data-spark d="M0 20 C 25 28, 45 8, 70 24 C 85 32, 95 14, 100 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
           </svg>
         </div>
 
         {/* Attendance Rate */}
-        <div className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="rounded-2xl p-5 bg-white flex flex-col justify-between" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between">
             <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600">
               <Briefcase size={18} />
@@ -137,7 +137,7 @@ export default function DashboardPage() {
             <p className="text-xs font-medium text-slate-500 mt-1">Attendance Rate</p>
           </div>
           <svg className="w-full h-8 mt-4 text-teal-400" viewBox="0 0 100 32" fill="none" preserveAspectRatio="none">
-            <path d="M0 24 C 20 16, 40 26, 60 10 C 80 16, 90 6, 100 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+            <path data-spark d="M0 24 C 20 16, 40 26, 60 10 C 80 16, 90 6, 100 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
           </svg>
         </div>
       </div>
@@ -145,7 +145,7 @@ export default function DashboardPage() {
       {/* ──────────────── Middle Row ──────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Attendance Chart — 5 cols */}
-        <div className="lg:col-span-5 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="lg:col-span-5 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between mb-5">
             <div>
               <h3 className="text-sm font-semibold text-slate-800">Attendance Overview</h3>
@@ -189,8 +189,8 @@ export default function DashboardPage() {
               <line x1="0" y1="30" x2="400" y2="30" stroke="#F0F2F5" strokeWidth="1" />
               <line x1="0" y1="75" x2="400" y2="75" stroke="#F0F2F5" strokeWidth="1" />
               <line x1="0" y1="120" x2="400" y2="120" stroke="#F0F2F5" strokeWidth="1" />
-              <path d="M 20 115 Q 120 72 200 68 T 380 32 L 380 150 L 20 150 Z" fill="url(#chartGrad)" />
-              <path d="M 20 115 Q 120 72 200 68 T 380 32" fill="none" stroke="#0D9488" strokeWidth="2.5" strokeLinecap="round" />
+              <path data-chart-area d="M 20 115 Q 120 72 200 68 T 380 32 L 380 150 L 20 150 Z" fill="url(#chartGrad)" />
+              <path data-chart-line d="M 20 115 Q 120 72 200 68 T 380 32" fill="none" stroke="#0D9488" strokeWidth="2.5" strokeLinecap="round" />
               <circle cx="20" cy="115" r="4" fill="#0D9488" stroke="#fff" strokeWidth="2" />
               <circle cx="140" cy="76" r="4" fill="#0D9488" stroke="#fff" strokeWidth="2" />
               <circle cx="260" cy="66" r="4" fill="#0D9488" stroke="#fff" strokeWidth="2" />
@@ -203,13 +203,13 @@ export default function DashboardPage() {
         </div>
 
         {/* Department Overview — 4 cols */}
-        <div className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
           <h3 className="text-sm font-semibold text-slate-800 mb-1">Department Overview</h3>
           <p className="text-xs text-slate-400 mb-5">Headcount by team</p>
 
           <div className="flex items-center gap-5">
             <div className="relative w-28 h-28 shrink-0">
-              <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
+              <svg data-chart-donut className="w-full h-full -rotate-90" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="14" fill="none" stroke="#F0F2F5" strokeWidth="4" />
                 <circle cx="18" cy="18" r="14" fill="none" stroke="#0D9488" strokeWidth="4" strokeDasharray="40 100" strokeDashoffset="0" />
                 <circle cx="18" cy="18" r="14" fill="none" stroke="#3B82F6" strokeWidth="4" strokeDasharray="25 100" strokeDashoffset="-40" />
@@ -242,7 +242,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Camera Check-in — 3 cols */}
-        <div className="lg:col-span-3 bg-[#0B1E21] text-white rounded-2xl p-5 flex flex-col justify-between" style={{ boxShadow: "var(--shadow-panel)" }}>
+        <div data-enter className="lg:col-span-3 bg-[#0B1E21] text-white rounded-2xl p-5 flex flex-col justify-between" style={{ boxShadow: "var(--shadow-panel)" }}>
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-white flex items-center gap-1.5">
               <Camera size={15} className="text-teal-400" />
@@ -283,7 +283,7 @@ export default function DashboardPage() {
       {/* ──────────────── Bottom Row ──────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Upcoming Leaves */}
-        <div className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-semibold text-slate-800">Upcoming Leaves</h3>
@@ -318,7 +318,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Activity */}
-        <div className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="lg:col-span-4 bg-white rounded-2xl p-6 flex flex-col" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-slate-800">Recent Activity</h3>
             <Link href="/audit-log" className="text-xs font-semibold text-teal-700 hover:underline flex items-center gap-1">
@@ -345,7 +345,7 @@ export default function DashboardPage() {
         </div>
 
         {/* AI Assistant */}
-        <div className="lg:col-span-4 bg-[#0B1E21] text-white rounded-2xl p-6 flex flex-col justify-between" style={{ boxShadow: "var(--shadow-panel)" }}>
+        <div data-enter className="lg:col-span-4 bg-[#0B1E21] text-white rounded-2xl p-6 flex flex-col justify-between" style={{ boxShadow: "var(--shadow-panel)" }}>
           <div>
             <div className="flex items-center gap-2 mb-2">
               <div className="w-6 h-6 rounded-lg bg-teal-400/20 flex items-center justify-center">

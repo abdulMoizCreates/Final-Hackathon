@@ -56,7 +56,7 @@ export default function AnalyticsPage() {
 
       {/* ──────────────── KPI Summary Strip ──────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between mb-3">
             <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Headcount</p>
             <span className="flex items-center text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md">
@@ -67,7 +67,7 @@ export default function AnalyticsPage() {
           <p className="text-[11px] text-slate-400 mt-1">Across 5 departments</p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between mb-3">
             <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Attendance Rate</p>
             <span className="flex items-center text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md">
@@ -78,7 +78,7 @@ export default function AnalyticsPage() {
           <p className="text-[11px] text-slate-400 mt-1">3.1% unexcused absences</p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between mb-3">
             <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Leave Utilization</p>
             <span className="flex items-center text-[10px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded-md">
@@ -89,7 +89,7 @@ export default function AnalyticsPage() {
           <p className="text-[11px] text-slate-400 mt-1">Avg 1.8 days / month</p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
+        <div data-enter className="bg-white p-5 rounded-2xl" style={{ boxShadow: "var(--shadow-card)" }}>
           <div className="flex items-center justify-between mb-3">
             <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Avg Salary</p>
             <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-md">
@@ -104,7 +104,7 @@ export default function AnalyticsPage() {
       {/* ──────────────── Main Charts Grid ──────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Attendance Area Trend (7 Cols) */}
-        <div className="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm space-y-4">
+        <div data-enter className="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-sm font-bold text-slate-900">Attendance & Punctuality Trends</h3>
@@ -140,12 +140,14 @@ export default function AnalyticsPage() {
 
               {/* Curved Area Fill */}
               <path
+                data-chart-area
                 d="M 10 160 Q 70 80, 130 90 T 250 50 T 370 70 T 490 35 L 490 190 L 10 190 Z"
                 fill="url(#areaGradient)"
               />
 
               {/* Curved Stroke */}
               <path
+                data-chart-line
                 d="M 10 160 Q 70 80, 130 90 T 250 50 T 370 70 T 490 35"
                 fill="none"
                 stroke="#0D9488"
@@ -155,6 +157,7 @@ export default function AnalyticsPage() {
 
               {/* Late Check-in baseline curve */}
               <path
+                data-chart-area
                 d="M 10 180 Q 70 170, 130 175 T 250 165 T 370 170 T 490 160"
                 fill="none"
                 stroke="#F59E0B"
@@ -178,7 +181,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Department Donut Distribution (5 Cols) */}
-        <div className="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm space-y-4">
+        <div data-enter className="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm space-y-4">
           <div>
             <h3 className="text-sm font-bold text-slate-900">Headcount by Department</h3>
             <p className="text-xs text-slate-400">Total staff allocation across business units</p>
@@ -187,7 +190,7 @@ export default function AnalyticsPage() {
           <div className="flex flex-col items-center justify-center py-2">
             {/* Donut graphic */}
             <div className="relative w-40 h-40">
-              <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+              <svg data-chart-donut viewBox="0 0 36 36" className="w-full h-full -rotate-90">
                 <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="#E2E8F0" strokeWidth="4" />
                 <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="#14B8A6" strokeWidth="4" strokeDasharray="42 58" strokeDashoffset="0" />
                 <circle cx="18" cy="18" r="15.915" fill="transparent" stroke="#3B82F6" strokeWidth="4" strokeDasharray="24 76" strokeDashoffset="-42" />
