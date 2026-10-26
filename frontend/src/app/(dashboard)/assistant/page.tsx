@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { useState, useRef, useEffect } from "react";
-import api from "@/lib/api";
+import { streamChat, assistantApi } from "@/api/assistant";
 import {
   Sparkles,
   Send,
@@ -33,6 +33,7 @@ export default function AssistantPage() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [status, setStatus] = useState<"checking" | "online" | "offline">("checking");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const messageIdRef = useRef(0);
 
@@ -44,71 +45,70 @@ export default function AssistantPage() {
     scrollToBottom();
   }, [messages, loading]);
 
+  // Honest status badge — reflects the real backend configuration instead of
+  // always claiming "Operational".
+  useEffect(() => {
+    let cancelled = false;
+    assistantApi
+      .status()
+      .then((s) => !cancelled && setStatus(s.online ? "online" : "offline"))
+      .catch(() => !cancelled && setStatus("offline"));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const handleSend = async (customPrompt?: string) => {
-    const textToSend = customPrompt || input;
-    if (!textToSend.trim() || loading) return;
+    const textToSend = (customPrompt || input).trim();
+    if (!textToSend || loading) return;
+
+    const time = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+    const botId = `b-${++messageIdRef.current}`;
 
     const userMsg: Message = {
       id: `u-${++messageIdRef.current}`,
       sender: "user",
       text: textToSend,
-      time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
+      time,
     };
 
-    setMessages((prev) => [...prev, userMsg]);
+    setMessages((prev) => [
+      ...prev,
+      userMsg,
+      { id: botId, sender: "bot", text: "", time },
+    ]);
     if (!customPrompt) setInput("");
     setLoading(true);
 
+    let received = "";
     try {
-      // Connect to backend assistant controller
-      const res = await api.post("/assistant/chat", {
-        message: textToSend,
-        sessionId: "hcm-session",
+      // Real backend stream (SSE) — deltas append into the bot bubble live.
+      await streamChat("hcm-session", textToSend, (delta) => {
+        received += delta;
+        setMessages((prev) =>
+          prev.map((m) => (m.id === botId ? { ...m, text: m.text + delta } : m))
+        );
       });
-
-      const reply = res.data?.reply || res.data?.response || res.data?.text || generateSmartFallbackReply(textToSend);
-
-      const botMsg: Message = {
-        id: `b-${++messageIdRef.current}`,
-        sender: "bot",
-        text: reply,
-        time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
-      };
-
-      setMessages((prev) => [...prev, botMsg]);
-    } catch {
-      // Intelligent fallback answer if Gemini key quota is reached
-      const fallback = generateSmartFallbackReply(textToSend);
-      const botMsg: Message = {
-        id: `b-${++messageIdRef.current}`,
-        sender: "bot",
-        text: fallback,
-        time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
-      };
-      setMessages((prev) => [...prev, botMsg]);
+      if (!received) {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === botId
+              ? { ...m, text: "The assistant returned an empty response. Please try again." }
+              : m
+          )
+        );
+      }
+    } catch (error) {
+      const note =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.";
+      setMessages((prev) =>
+        prev.map((m) => (m.id === botId ? { ...m, text: `⚠ ${note}` } : m))
+      );
     } finally {
       setLoading(false);
     }
-  };
-
-  const generateSmartFallbackReply = (query: string): string => {
-    const q = query.toLowerCase();
-    if (q.includes("leave") || q.includes("who is on leave")) {
-      return "Currently, **1 employee** is on approved leave today:\n- **Ayesha Malik** (Finance) — Annual Leave until 25 Oct.\n\nThere are also **3 pending leave requests** from Bilal Tariq, Zainab Ali, and Hamza Sheikh waiting in the approvals tab.";
-    }
-    if (q.includes("attendance") || q.includes("present") || q.includes("summary")) {
-      return "**Today's Attendance Summary:**\n- **Present:** 42 employees (95.4% on-time)\n- **Late Arrivals:** 3 employees (within 15m grace window)\n- **On Leave:** 5 employees\n- **Total Headcount:** 50 employees\n\nPunctuality has increased by **2.4%** compared to the previous week.";
-    }
-    if (q.includes("holiday") || q.includes("announcement") || q.includes("quaid")) {
-      return "Here is a drafted company announcement for you:\n\n**Public Holiday Notice: Quaid-e-Azam Day**\n\n*Dear Team,*\n\nPlease note that in observance of Quaid-e-Azam Day and Christmas, our offices will remain closed on **Wednesday, 25th December 2026**. Normal work shifts will resume on Thursday.\n\nWishing everyone a restful day!\n*— Human Resources Team*";
-    }
-    if (q.includes("late") || q.includes("policy") || q.includes("grace")) {
-      return "**Company Shift & Grace Period Policy:**\n- **Standard Shift:** 09:00 AM – 06:00 PM (Monday to Friday)\n- **Grace Period:** 15 minutes (Arrivals between 09:01 – 09:15 AM are counted as on-time).\n- **Late Penalty:** 3 late arrivals in a calendar month result in a half-day salary deduction.\n- **Half-Day Threshold:** Check-ins after 01:00 PM are marked as Half-Day.";
-    }
-    if (q.includes("payroll") || q.includes("salary") || q.includes("net")) {
-      return "**Payroll Calculation Rules:**\n- **Gross Salary** = Basic Pay (50%) + Medical Allowance (25%) + Conveyance Allowance (25%).\n- **Deductions** = Unpaid Leaves + Late Penalties.\n- **Net Disbursed** = Gross Salary - Deductions.\n- Current October 2026 Total Net Payroll is **Rs. 1,380,000**.";
-    }
-    return `Regarding your inquiry: "${query}"\n\nI have cross-checked our company database. All relevant records under HCM Lite comply with your organizational policies. Would you like me to generate a formal summary or notify the HR department?`;
   };
 
   const handleCopy = (id: string, text: string) => {
@@ -140,10 +140,23 @@ export default function AssistantPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Operational
-          </span>
+          {status === "online" && (
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Operational
+            </span>
+          )}
+          {status === "offline" && (
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-600 text-xs font-semibold">
+              <span className="w-2 h-2 rounded-full bg-red-500" />
+              Assistant offline
+            </span>
+          )}
+          {status === "checking" && (
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-xs font-semibold">
+              Checking…
+            </span>
+          )}
           <button
             onClick={() => setMessages([messages[0]])}
             className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"

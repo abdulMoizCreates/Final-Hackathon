@@ -20,9 +20,9 @@ export default function DashboardMockup() {
         style={{ background: "var(--surface)", borderColor: "#EEF1F4" }}
       >
         <div className="flex gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#FCA5A5" }} />
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#FCD34D" }} />
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#6EE7B7" }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#D0D7DE" }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#D0D7DE" }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#D0D7DE" }} />
         </div>
         <div
           className="mx-auto px-3 py-1 rounded-md text-[11px] font-mono"
@@ -47,7 +47,7 @@ export default function DashboardMockup() {
           </div>
           <span
             className="text-[11px] px-2.5 py-1 rounded-full font-semibold"
-            style={{ background: "var(--st-present-bg)", color: "var(--st-present-fg)" }}
+            style={{ background: "var(--sunken)", color: "var(--ink-2)" }}
           >
             Ledger synced
           </span>
@@ -62,7 +62,7 @@ export default function DashboardMockup() {
             <span className="eyebrow">Dayrail</span>
             <span
               className="text-[11px] px-2 py-0.5 rounded-full font-semibold tabular-nums"
-              style={{ background: "var(--st-present-bg)", color: "var(--st-present-fg)" }}
+              style={{ background: "var(--sunken)", color: "var(--ink-2)" }}
             >
               Present · 09:07 AM
             </span>
@@ -73,16 +73,16 @@ export default function DashboardMockup() {
         {/* Attendance KPIs */}
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: "Present", value: "8", bg: "var(--kpi-mint-bg)", fg: "var(--kpi-mint-fg)" },
-            { label: "Late", value: "2", bg: "var(--st-late-bg)", fg: "var(--st-late-fg)" },
-            { label: "On leave", value: "3", bg: "var(--kpi-purple-bg)", fg: "var(--kpi-purple-fg)" },
+            { label: "Present", value: "8" },
+            { label: "Late", value: "2" },
+            { label: "On leave", value: "3" },
           ].map((kpi) => (
             <div
               key={kpi.label}
               className="rounded-xl px-3.5 py-3"
-              style={{ background: kpi.bg }}
+              style={{ background: "var(--sunken)" }}
             >
-              <div className="stat-num text-xl leading-none" style={{ color: kpi.fg }}>
+              <div className="stat-num text-xl leading-none" style={{ color: "var(--ink)" }}>
                 {kpi.value}
               </div>
               <div className="text-[11px] font-medium mt-1.5" style={{ color: "var(--ink-3)" }}>
@@ -105,11 +105,11 @@ export default function DashboardMockup() {
             </div>
             <div className="flex justify-between">
               <span>Allowances</span>
-              <span style={{ color: "var(--kpi-mint-fg)" }}>+Rs. 18,000</span>
+              <span style={{ color: "var(--accent)" }}>+Rs. 18,000</span>
             </div>
             <div className="flex justify-between">
               <span>Deductions</span>
-              <span style={{ color: "var(--kpi-coral-fg)" }}>−Rs. 6,000</span>
+              <span style={{ color: "var(--ink-4)" }}>−Rs. 6,000</span>
             </div>
             <div className="flex justify-between pt-1.5 font-semibold" style={{ borderTop: "1px dashed #D8DEE5", color: "var(--ink)" }}>
               <span>Net pay</span>

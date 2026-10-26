@@ -121,7 +121,7 @@ function LoginForm() {
           <div>
             <span
               className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3 shadow-soft"
-              style={{ background: "rgba(255,255,255,0.08)", color: "#7DB5EA" }}
+              style={{ background: "rgba(255,255,255,0.08)", color: "var(--accent-light)" }}
             >
               <ShieldCheck size={14} /> Immutable Ledger Architecture
             </span>

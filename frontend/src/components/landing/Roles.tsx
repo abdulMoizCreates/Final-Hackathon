@@ -160,9 +160,7 @@ export default function Roles() {
                 className="w-[300px] sm:w-[400px] shrink-0 rounded-2xl gradient-border shadow-card p-6 sm:p-7 select-none"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }} aria-hidden>
-                    <role.icon size={18} />
-                  </span>
+                  <role.icon size={22} className="shrink-0" style={{ color: "var(--accent)" }} aria-hidden />
                   <h3 className="display-md" style={{ fontSize: "1.125rem" }}>{role.title}</h3>
                 </div>
                 <p className="text-sm leading-relaxed mt-3" style={{ color: "var(--ink-3)" }}>
@@ -172,7 +170,7 @@ export default function Roles() {
                 <ul className="mt-5 space-y-2.5">
                   {role.permissions.map((perm) => (
                     <li key={perm} className="flex items-start gap-2.5 text-sm" style={{ color: "var(--ink-2)" }}>
-                      <Check size={14} className="mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden style={{ color: "var(--primary)" }} />
+                      <Check size={14} className="mt-0.5 shrink-0" strokeWidth={2.5} aria-hidden style={{ color: "var(--accent)" }} />
                       {perm}
                     </li>
                   ))}
@@ -182,7 +180,7 @@ export default function Roles() {
                 <div className="mt-6 rounded-xl px-4 py-3 font-mono text-[11px] leading-relaxed space-y-1" style={{ background: "var(--canvas)", border: "1px solid #EEF1F4", color: "var(--ink-3)" }} aria-hidden>
                   {role.preview.map((line) => (
                     <div key={line} className="flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "var(--primary)" }} />
+                      <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "var(--accent)" }} />
                       {line}
                     </div>
                   ))}
@@ -221,7 +219,7 @@ export default function Roles() {
             </button>
           </div>
           <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: "#E4E9EE" }} aria-hidden>
-            <div ref={progressRef} className="h-full w-full origin-left" style={{ background: "var(--primary)", transform: "scaleX(0.06)" }} />
+            <div ref={progressRef} className="h-full w-full origin-left" style={{ background: "var(--accent)", transform: "scaleX(0.06)" }} />
           </div>
           <span className="text-[11px] font-mono hidden sm:block" style={{ color: "var(--ink-4)" }}>drag · arrow keys</span>
         </div>

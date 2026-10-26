@@ -25,7 +25,7 @@ function Row({ hidden = false }: { hidden?: boolean }) {
           <span className="px-5 text-sm font-medium whitespace-nowrap" style={{ color: "var(--ink-2)" }}>
             {cap}
           </span>
-          <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--primary)" }} aria-hidden />
+          <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--accent)" }} aria-hidden />
         </div>
       ))}
     </div>

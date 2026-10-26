@@ -42,11 +42,11 @@ export default function Footer() {
             <div className="flex items-center gap-2.5">
               <div
                 className="w-8 h-8 rounded-xl flex items-center justify-center"
-                style={{ background: "var(--primary)", boxShadow: "0 2px 8px rgba(13,148,136,0.3)" }}
+                style={{ background: "var(--accent)", boxShadow: "0 2px 8px rgba(22,101,52,0.3)" }}
                 aria-hidden
               >
                 <div className="w-4 h-0.5 rounded bg-white relative">
-                  <div className="absolute w-2 h-2 rounded-full -top-[3px] left-1" style={{ background: "var(--highlight)" }} />
+                  <div className="absolute w-2 h-2 rounded-full -top-[3px] left-1" style={{ background: "var(--accent-light)" }} />
                 </div>
               </div>
               <span className="font-display font-semibold text-lg tracking-tight">HCM Lite</span>

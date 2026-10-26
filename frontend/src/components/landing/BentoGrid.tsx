@@ -14,7 +14,7 @@ const HEAT: string[] = [
   "p","p","p","p","lv","r","r",
 ];
 const HEAT_STYLE: Record<string, string> = {
-  p: "var(--primary)", late: "var(--highlight)", lv: "var(--kpi-purple-fg)", r: "var(--sunken)",
+  p: "var(--accent)", late: "var(--highlight)", lv: "#94A3B8", r: "var(--sunken)",
 };
 const HEAT_OP: Record<string, number> = { p: 0.85, late: 0.9, lv: 0.7, r: 1 };
 
@@ -126,9 +126,9 @@ export default function BentoGrid() {
             </div>
             <div className="flex flex-wrap gap-4 mt-4" aria-hidden>
               {[
-                ["Present", "var(--primary)"],
+                ["Present", "var(--accent)"],
                 ["Late", "var(--highlight)"],
-                ["On leave", "var(--kpi-purple-fg)"],
+                ["On leave", "#94A3B8"],
               ].map(([label, color]) => (
                 <span key={label} className="flex items-center gap-1.5 text-[11px] font-medium" style={{ color: "var(--ink-3)" }}>
                   <span className="w-2.5 h-2.5 rounded-sm" style={{ background: color }} /> {label}
@@ -144,14 +144,14 @@ export default function BentoGrid() {
               The office perimeter is set once. Check-in only counts inside it.
             </p>
             <div className="relative mt-6 h-44 rounded-xl overflow-hidden flex items-center justify-center" style={{ background: "var(--sunken)" }} aria-hidden>
-              <div className="absolute w-52 h-52 rounded-full border" style={{ borderColor: "rgba(13,148,136,0.18)" }} />
-              <div className="absolute w-36 h-36 rounded-full border" style={{ borderColor: "rgba(13,148,136,0.28)" }} />
-              <div className="absolute w-20 h-20 rounded-full border" style={{ borderColor: "rgba(13,148,136,0.4)" }} />
-              <span className="relative w-3.5 h-3.5 rounded-full" style={{ background: "var(--primary)" }}>
-                <span className="absolute inset-0 rounded-full animate-ping" style={{ background: "rgba(13,148,136,0.35)" }} />
+              <div className="absolute w-52 h-52 rounded-full border" style={{ borderColor: "rgba(22,101,52,0.16)" }} />
+              <div className="absolute w-36 h-36 rounded-full border" style={{ borderColor: "rgba(22,101,52,0.26)" }} />
+              <div className="absolute w-20 h-20 rounded-full border" style={{ borderColor: "rgba(22,101,52,0.4)" }} />
+              <span className="relative w-3.5 h-3.5 rounded-full" style={{ background: "var(--accent)" }}>
+                <span className="absolute inset-0 rounded-full animate-ping" style={{ background: "rgba(22,101,52,0.3)" }} />
               </span>
               <span className="absolute top-4 right-5 flex items-center gap-1.5 text-[11px] font-medium px-2 py-1 rounded-md bg-white shadow-soft" style={{ color: "var(--ink-2)" }}>
-                <MapPin size={11} style={{ color: "var(--primary)" }} /> 120 m radius
+                <MapPin size={11} style={{ color: "var(--accent)" }} /> 120 m radius
               </span>
             </div>
           </BentoCard>
@@ -172,7 +172,7 @@ export default function BentoGrid() {
                     <div className="text-xs font-semibold" style={{ color: "var(--ink)" }}>{req.name}</div>
                     <div className="text-[11px] mt-0.5" style={{ color: "var(--ink-4)" }}>{req.type}</div>
                   </div>
-                  <span className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg" style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }}>
+                  <span className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg" style={{ background: "var(--sunken)", color: "var(--accent)" }}>
                     <Bell size={11} /> {req.chip}
                   </span>
                 </div>
@@ -190,18 +190,16 @@ export default function BentoGrid() {
                   PDF by the employee.
                 </p>
               </div>
-              <span className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }} aria-hidden>
-                <FileDown size={16} />
-              </span>
+              <FileDown size={18} className="shrink-0 mt-1" style={{ color: "var(--accent)" }} aria-hidden />
             </div>
             <div className="mt-6 rounded-xl p-4" style={{ background: "var(--canvas)", border: "1px solid #EEF1F4" }} aria-hidden>
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-semibold" style={{ color: "var(--ink)" }}>Payslip · October</span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full" style={{ background: "var(--st-present-bg)", color: "var(--st-present-fg)" }}>computed</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full" style={{ background: "var(--sunken)", color: "var(--ink-2)" }}>computed</span>
               </div>
               <div className="text-xs font-mono tabular-nums space-y-1.5" style={{ color: "var(--ink-3)" }}>
                 <div className="flex justify-between"><span>Basic</span><span>Rs. 120,000</span></div>
-                <div className="flex justify-between"><span>Allowances</span><span style={{ color: "var(--kpi-mint-fg)" }}>+Rs. 18,000</span></div>
+                <div className="flex justify-between"><span>Allowances</span><span style={{ color: "var(--accent)" }}>+Rs. 18,000</span></div>
                 <div className="flex justify-between pt-1 font-semibold" style={{ borderTop: "1px dashed #D8DEE5", color: "var(--ink)" }}><span>Net</span><span>Rs. 132,000</span></div>
               </div>
             </div>
@@ -211,9 +209,7 @@ export default function BentoGrid() {
           <BentoCard className="md:col-span-12" onPointerMove={onMove} onPointerLeave={onLeave}>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               <div className="lg:col-span-5">
-                <span className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }} aria-hidden>
-                  <ScrollText size={16} />
-                </span>
+                <ScrollText size={20} style={{ color: "var(--accent)" }} aria-hidden />
                 <h3 className="display-md mt-3">Audit trail, by default</h3>
                 <p className="text-sm leading-relaxed mt-2" style={{ color: "var(--ink-3)" }}>
                   Every posting, approval and lock is logged — so payroll day is boring, in the
@@ -223,7 +219,7 @@ export default function BentoGrid() {
               <div className="lg:col-span-7 rounded-xl p-4 font-mono text-[11px] sm:text-xs leading-loose tabular-nums" style={{ background: "var(--moss-900)", color: "#9FB8AE" }} aria-hidden>
                 {AUDIT_LINES.map((line) => (
                   <div key={line} className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#34D399" }} />
+                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--accent-light)" }} />
                     {line}
                   </div>
                 ))}

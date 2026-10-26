@@ -57,7 +57,7 @@ export default function FinalCta() {
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="relative overflow-hidden rounded-3xl text-center py-16 sm:py-24 px-6" style={{ background: "linear-gradient(160deg, var(--moss-950), var(--moss-900) 55%, var(--moss-800))" }}>
           {/* Glow + dots */}
-          <div aria-hidden className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-[380px] w-[560px] rounded-full blur-3xl" style={{ background: "radial-gradient(closest-side, rgba(13,148,136,0.35), transparent)" }} />
+          <div aria-hidden className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-[380px] w-[560px] rounded-full blur-3xl" style={{ background: "radial-gradient(closest-side, rgba(22,101,52,0.35), transparent)" }} />
           <div aria-hidden className="absolute inset-0 bg-dots opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,#000,transparent)]" />
 
           <div className="relative space-y-5">
@@ -72,8 +72,8 @@ export default function FinalCta() {
               <span ref={magnetRef} className="inline-block will-change-transform">
                 <Link
                   href={user ? "/dashboard" : "/login"}
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-sm font-semibold bg-emerald-400 hover:bg-emerald-300 active:scale-[0.98] text-slate-950 transition-colors duration-200"
-                  style={{ boxShadow: "0 12px 32px -8px rgba(52,211,153,0.5)" }}
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-sm font-semibold bg-accent hover:bg-accent-hover active:scale-[0.98] text-white transition-all duration-200"
+                  style={{ boxShadow: "0 12px 32px -8px rgba(22,101,52,0.5)" }}
                 >
                   {user ? "Open workspace" : "Try live assistant"}
                   <ArrowRight size={16} aria-hidden />

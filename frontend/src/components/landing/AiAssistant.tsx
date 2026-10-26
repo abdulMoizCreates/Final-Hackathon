@@ -64,18 +64,18 @@ export default function AiAssistant() {
           <div
             aria-hidden
             className="pointer-events-none absolute -top-24 -right-24 h-[420px] w-[420px] rounded-full blur-3xl"
-            style={{ background: "radial-gradient(closest-side, rgba(52,211,153,0.14), transparent)" }}
+            style={{ background: "radial-gradient(closest-side, rgba(110,231,183,0.10), transparent)" }}
           />
           <div
             aria-hidden
             className="pointer-events-none absolute -bottom-32 -left-20 h-[380px] w-[380px] rounded-full blur-3xl opacity-70"
-            style={{ background: "radial-gradient(closest-side, rgba(13,148,136,0.16), transparent)" }}
+            style={{ background: "radial-gradient(closest-side, rgba(22,101,52,0.30), transparent)" }}
           />
 
           <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center p-7 sm:p-12 lg:p-16">
             {/* Copy */}
             <div className="space-y-5">
-              <span data-ai-copy className="eyebrow" style={{ color: "#34D399" }}>Integrated Gemini AI</span>
+              <span data-ai-copy className="eyebrow" style={{ color: "var(--accent-light)" }}>Integrated Gemini AI</span>
               <h2 data-ai-copy id="ai-title" className="display-lg" style={{ color: "#F1F5F9" }}>
                 An assistant that answers from the ledger, not from vibes.
               </h2>
@@ -85,19 +85,17 @@ export default function AiAssistant() {
               </p>
               <ul className="space-y-3 pt-1">
                 {CAPABILITIES.map((cap) => (
-                  <li key={cap.text} data-ai-copy className="flex items-start gap-3">
-                    <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(52,211,153,0.12)", color: "#34D399" }} aria-hidden>
-                      <cap.icon size={15} />
-                    </span>
-                    <span className="text-sm leading-relaxed pt-1.5" style={{ color: "#D7E4DE" }}>{cap.text}</span>
+                  <li key={cap.text} data-ai-copy className="flex items-start gap-2.5">
+                    <cap.icon size={16} className="shrink-0 mt-0.5" style={{ color: "var(--accent-light)" }} aria-hidden />
+                    <span className="text-sm leading-relaxed" style={{ color: "#D7E4DE" }}>{cap.text}</span>
                   </li>
                 ))}
               </ul>
               <div data-ai-copy className="pt-3">
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:bg-emerald-300 active:scale-[0.98] bg-emerald-400 text-slate-950"
-                  style={{ boxShadow: "0 8px 20px -6px rgba(52,211,153,0.45)" }}
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-accent hover:bg-accent-hover active:scale-[0.98] text-white"
+                  style={{ boxShadow: "0 8px 20px -6px rgba(22,101,52,0.45)" }}
                 >
                   Try live assistant <ArrowRight size={16} aria-hidden />
                 </Link>
@@ -113,20 +111,20 @@ export default function AiAssistant() {
               aria-hidden
             >
               <div className="flex items-center gap-2 pb-3" style={{ borderBottom: "1px solid rgba(230,237,211,0.08)" }}>
-                <span className="w-2 h-2 rounded-full" style={{ background: "#34D399" }} />
+                <span className="w-2 h-2 rounded-full" style={{ background: "var(--accent-light)" }} />
                 <span className="text-xs font-medium" style={{ color: "#9FB8AE" }}>HR Assistant · employee scope</span>
               </div>
 
               {/* User bubble */}
               <div data-msg-user className="flex justify-end">
-                <div className="max-w-[80%] px-4 py-2.5 rounded-2xl rounded-br-md text-sm" style={{ background: "#10B981", color: "#04211A" }}>
+                <div className="max-w-[80%] px-4 py-2.5 rounded-2xl rounded-br-md text-sm" style={{ background: "var(--accent)", color: "#FFFFFF" }}>
                   {CHAT.user}
                 </div>
               </div>
 
               {/* Tool-call chip */}
               <div data-msg-tool className="flex justify-start">
-                <div className="flex items-center gap-2 px-3 py-2 rounded-lg font-mono text-[11px]" style={{ background: "rgba(255,255,255,0.06)", border: "1px dashed rgba(52,211,153,0.4)", color: "#6EE7B7" }}>
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg font-mono text-[11px]" style={{ background: "rgba(255,255,255,0.06)", border: "1px dashed rgba(134,233,200,0.4)", color: "var(--accent-light)" }}>
                   <FileText size={12} aria-hidden />
                   <span className="truncate max-w-[260px] sm:max-w-none">{CHAT.tool}</span>
                 </div>
@@ -153,7 +151,7 @@ export default function AiAssistant() {
               </div>
 
               <div className="flex items-center gap-2 pt-1">
-                <Check size={12} style={{ color: "#34D399" }} aria-hidden />
+                <Check size={12} style={{ color: "var(--accent-light)" }} aria-hidden />
                 <span className="text-[11px]" style={{ color: "#9FB8AE" }}>Grounded in ledger data · role-scoped</span>
               </div>
             </div>

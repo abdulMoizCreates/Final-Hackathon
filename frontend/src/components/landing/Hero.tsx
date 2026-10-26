@@ -99,12 +99,7 @@ export default function Hero() {
       <div
         aria-hidden
         className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-[480px] w-[820px] rounded-full blur-3xl"
-        style={{ background: "radial-gradient(closest-side, rgba(13,148,136,0.14), transparent)" }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-64 -left-40 h-[380px] w-[380px] rounded-full blur-3xl opacity-60"
-        style={{ background: "radial-gradient(closest-side, rgba(242,176,30,0.10), transparent)" }}
+        style={{ background: "radial-gradient(closest-side, rgba(22,101,52,0.12), transparent)" }}
       />
 
       <div className="relative max-w-6xl mx-auto px-5 sm:px-6 pt-32 sm:pt-40 pb-16 sm:pb-20">
@@ -113,9 +108,9 @@ export default function Hero() {
           <span
             data-hero-badge
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-soft"
-            style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }}
+            style={{ background: "var(--surface)", border: "1px solid #E4E9EE", color: "var(--ink-2)" }}
           >
-            <Sparkles size={13} aria-hidden /> Precision human capital management
+            <Sparkles size={13} aria-hidden style={{ color: "var(--accent)" }} /> Precision human capital management
           </span>
         </div>
 
@@ -144,8 +139,8 @@ export default function Hero() {
         <div data-hero-fade className="flex flex-wrap justify-center items-center gap-3 mt-8">
           <Link
             href={user ? "/dashboard" : "/login"}
-            className="px-6 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:bg-primary-deep active:scale-[0.98] bg-primary-strong text-white flex items-center gap-2"
-            style={{ boxShadow: "0 8px 20px -6px rgba(15,118,110,0.5)" }}
+            className="px-6 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 bg-accent hover:bg-accent-hover active:scale-[0.98] text-white flex items-center gap-2"
+            style={{ boxShadow: "0 8px 20px -6px rgba(22,101,52,0.4)" }}
           >
             <span>{user ? "Open workspace" : "Sign in to workspace"}</span>
             <ArrowRight size={16} aria-hidden />
@@ -163,7 +158,7 @@ export default function Hero() {
         <ul data-hero-fade className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-7">
           {PROOF_CHIPS.map((chip) => (
             <li key={chip.label} className="flex items-center gap-2 text-sm" style={{ color: "var(--ink-3)" }}>
-              <chip.icon size={14} aria-hidden style={{ color: "var(--primary)" }} strokeWidth={2.5} />
+              <chip.icon size={14} aria-hidden style={{ color: "var(--accent)" }} strokeWidth={2.5} />
               {chip.label}
             </li>
           ))}
@@ -174,7 +169,7 @@ export default function Hero() {
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-8 -top-10 h-40 rounded-full blur-3xl"
-            style={{ background: "radial-gradient(closest-side, rgba(13,148,136,0.18), transparent)" }}
+            style={{ background: "radial-gradient(closest-side, rgba(22,101,52,0.16), transparent)" }}
           />
           <div data-hero-frame style={{ transform: "rotateX(6deg)" }} className="relative will-change-transform">
             <DashboardMockup />
@@ -186,9 +181,7 @@ export default function Hero() {
             className="hidden sm:flex absolute -left-4 lg:-left-10 top-20 items-center gap-2.5 rounded-xl px-4 py-3 glass shadow-lift"
             aria-hidden
           >
-            <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--st-present-bg)", color: "var(--st-present-fg)" }}>
-              <MapPin size={15} />
-            </span>
+            <MapPin size={17} className="shrink-0" style={{ color: "var(--accent)" }} />
             <div>
               <div className="text-xs font-semibold" style={{ color: "var(--ink)" }}>Check-in confirmed</div>
               <div className="text-[11px] font-mono tabular-nums" style={{ color: "var(--ink-4)" }}>09:07 · inside geofence</div>
@@ -200,9 +193,7 @@ export default function Hero() {
             className="hidden md:flex absolute -right-3 lg:-right-9 top-56 items-center gap-2.5 rounded-xl px-4 py-3 glass shadow-lift"
             aria-hidden
           >
-            <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--st-leave-bg)", color: "var(--st-leave-fg)" }}>
-              <Bell size={15} />
-            </span>
+            <Bell size={17} className="shrink-0" style={{ color: "var(--accent)" }} />
             <div>
               <div className="text-xs font-semibold" style={{ color: "var(--ink)" }}>Leave approved</div>
               <div className="text-[11px]" style={{ color: "var(--ink-4)" }}>Inbox cleared</div>
@@ -214,9 +205,7 @@ export default function Hero() {
             className="hidden sm:flex absolute left-6 lg:left-16 -bottom-6 items-center gap-2.5 rounded-xl px-4 py-3 glass shadow-lift"
             aria-hidden
           >
-            <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }}>
-              <FileDown size={15} />
-            </span>
+            <FileDown size={17} className="shrink-0" style={{ color: "var(--accent)" }} />
             <div>
               <div className="text-xs font-semibold" style={{ color: "var(--ink)" }}>Payslip ready</div>
               <div className="text-[11px]" style={{ color: "var(--ink-4)" }}>October · PDF</div>

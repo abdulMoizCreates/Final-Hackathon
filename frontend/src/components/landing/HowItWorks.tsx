@@ -55,12 +55,12 @@ export default function HowItWorks() {
         });
 
         tl.from("[data-step-card='0']", { opacity: 0, y: 30, duration: 0.6 }, 0)
-          .to("[data-node='0']", { scale: 1.25, backgroundColor: "#0F766E", duration: 0.4 }, 0)
+          .to("[data-node='0']", { scale: 1.25, backgroundColor: "#147151", duration: 0.4 }, 0)
           .to(path, { strokeDashoffset: 0, duration: 3.2, ease: "none" }, 0.2)
           .from("[data-step-card='1']", { opacity: 0, y: 30, duration: 0.6 }, 1.15)
-          .to("[data-node='1']", { scale: 1.25, backgroundColor: "#0F766E", duration: 0.4 }, 1.35)
+          .to("[data-node='1']", { scale: 1.25, backgroundColor: "#147151", duration: 0.4 }, 1.35)
           .from("[data-step-card='2']", { opacity: 0, y: 30, duration: 0.6 }, 2.3)
-          .to("[data-node='2']", { scale: 1.25, backgroundColor: "#0F766E", duration: 0.4 }, 2.5)
+          .to("[data-node='2']", { scale: 1.25, backgroundColor: "#147151", duration: 0.4 }, 2.5)
           .from("[data-resolution]", { opacity: 0, y: 26, scale: 0.96, duration: 0.8, ease: "power3.out" }, 3.2);
       });
 
@@ -104,7 +104,7 @@ export default function HowItWorks() {
             <path
               ref={pathRef}
               d="M 40 70 C 160 20, 320 120, 480 70 S 600 40, 620 70"
-              stroke="var(--primary)"
+              stroke="var(--accent)"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
@@ -130,9 +130,7 @@ export default function HowItWorks() {
                 style={{ opacity: i === 0 ? 1 : undefined }}
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }} aria-hidden>
-                    <step.icon size={18} />
-                  </span>
+                  <step.icon size={20} style={{ color: "var(--accent)" }} aria-hidden />
                   <span className="eyebrow">{step.tag}</span>
                 </div>
                 <h3 className="display-md mt-4">{step.title}</h3>
@@ -144,8 +142,8 @@ export default function HowItWorks() {
           </div>
 
           {/* Resolution */}
-          <div data-resolution className="mt-8 flex items-center gap-2.5 rounded-full px-5 py-2.5 shadow-soft" style={{ background: "var(--primary-soft)", color: "var(--primary-deep)" }}>
-            <Check size={15} strokeWidth={2.75} aria-hidden />
+          <div data-resolution className="mt-8 flex items-center gap-2.5 rounded-full px-5 py-2.5 shadow-soft" style={{ background: "var(--surface)", border: "1px solid #E4E9EE", color: "var(--ink)" }}>
+            <Check size={15} strokeWidth={2.75} style={{ color: "var(--accent)" }} aria-hidden />
             <span className="text-sm font-semibold">One record per day. One calculation per payslip.</span>
           </div>
         </div>
@@ -158,13 +156,11 @@ export default function HowItWorks() {
                 <span className="absolute left-[13px] top-10 bottom-[-1.5rem] w-px" style={{ background: "#E4E9EE" }} aria-hidden />
               )}
               <span className="absolute left-0 top-5 w-[27px] flex justify-center">
-                <span className="w-3.5 h-3.5 rounded-full border-2 border-white shadow-soft" style={{ background: "var(--primary)" }} aria-hidden />
+                <span className="w-3.5 h-3.5 rounded-full border-2 border-white shadow-soft" style={{ background: "var(--accent)" }} aria-hidden />
               </span>
               <div className="rounded-2xl gradient-border shadow-card p-6">
                 <div className="flex items-center gap-3">
-                  <span className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }} aria-hidden>
-                    <step.icon size={16} />
-                  </span>
+                  <step.icon size={18} className="shrink-0" style={{ color: "var(--accent)" }} aria-hidden />
                   <span className="eyebrow">{step.tag}</span>
                 </div>
                 <h3 className="text-base font-display font-semibold tracking-tight mt-3">{step.title}</h3>
@@ -174,8 +170,8 @@ export default function HowItWorks() {
               </div>
             </div>
           ))}
-          <div className="flex items-center gap-2.5 rounded-full px-5 py-2.5 shadow-soft w-fit" style={{ background: "var(--primary-soft)", color: "var(--primary-deep)" }}>
-            <Check size={15} strokeWidth={2.75} aria-hidden />
+          <div className="flex items-center gap-2.5 rounded-full px-5 py-2.5 shadow-soft w-fit" style={{ background: "var(--surface)", border: "1px solid #E4E9EE", color: "var(--ink)" }}>
+            <Check size={15} strokeWidth={2.75} style={{ color: "var(--accent)" }} aria-hidden />
             <span className="text-sm font-semibold">One record per day. One calculation per payslip.</span>
           </div>
         </div>

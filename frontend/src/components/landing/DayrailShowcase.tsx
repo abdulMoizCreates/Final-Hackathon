@@ -93,7 +93,7 @@ export default function DayrailShowcase() {
               style={{
                 left: `${POS.checkIn}%`,
                 width: `${POS.checkOut - POS.checkIn}%`,
-                background: "linear-gradient(90deg, var(--primary) 0%, var(--primary-strong) 100%)",
+                background: "linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%)",
               }}
               aria-hidden
             />
@@ -101,13 +101,13 @@ export default function DayrailShowcase() {
 
           {/* Markers */}
           <div data-rail-marker className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow-soft"
-            style={{ left: `${POS.checkIn}%`, background: "var(--primary)" }} aria-hidden />
+            style={{ left: `${POS.checkIn}%`, background: "var(--accent)" }} aria-hidden />
           <div data-rail-marker className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full border-2 border-white shadow-soft"
             style={{ left: `${POS.grace}%`, background: "var(--highlight)" }} aria-hidden />
           <div data-rail-marker className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow-soft"
-            style={{ left: `${POS.halfDay}%`, background: "var(--primary-strong)" }} aria-hidden />
+            style={{ left: `${POS.halfDay}%`, background: "var(--accent)" }} aria-hidden />
           <div data-rail-marker className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-white shadow-soft"
-            style={{ left: `${POS.checkOut}%`, background: "var(--primary-deep)" }} aria-hidden />
+            style={{ left: `${POS.checkOut}%`, background: "var(--ink)" }} aria-hidden />
 
           {/* Labels — alternate above/below; simplified on mobile */}
           <div data-rail-label className="absolute -top-12 hidden sm:flex flex-col items-center -translate-x-1/2" style={{ left: `${POS.checkIn}%` }} aria-hidden>
@@ -138,9 +138,7 @@ export default function DayrailShowcase() {
               data-rail-fact
               className="rounded-2xl p-5 flex items-start gap-3.5 gradient-border shadow-card"
             >
-              <span className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "var(--primary-soft)", color: "var(--primary-hover)" }} aria-hidden>
-                <fact.icon size={16} />
-              </span>
+              <fact.icon size={18} className="shrink-0 mt-0.5" style={{ color: "var(--accent)" }} aria-hidden />
               <div>
                 <div className="text-sm font-semibold" style={{ color: "var(--ink)" }}>{fact.label}</div>
                 <div className="text-xs mt-1 leading-relaxed" style={{ color: "var(--ink-3)" }}>{fact.note}</div>

@@ -32,9 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Inter Tight via cdnfonts — single variable-weight file (100–900) */}
+        {/* Inter via cdnfonts — static weights 100–900 + variable slnt/wght file */}
         <link rel="preconnect" href="https://fonts.cdnfonts.com" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/inter-tight" />
+        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/inter" />
       </head>
       <body
         className={`${inter.variable} ${geistMono.variable} antialiased`}

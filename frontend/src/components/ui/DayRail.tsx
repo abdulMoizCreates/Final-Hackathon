@@ -91,7 +91,7 @@ export default function DayRail({
             style={{
               left: `${workedLeft}%`,
               width: `${Math.max(workedWidth, 1)}%`,
-              background: "var(--primary)",
+              background: "var(--accent)",
             }}
           />
         )}
@@ -106,7 +106,7 @@ export default function DayRail({
             left: `${workedLeft}%`,
             top: "50%",
             transform: "translate(-50%, -50%)",
-            background: statusColors[status] || "var(--primary)",
+            background: statusColors[status] || "var(--accent)",
           }}
         />
       )}

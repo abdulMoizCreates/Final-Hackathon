@@ -13,6 +13,9 @@
   --color-primary-deep: var(--primary-deep);
   --color-primary-soft: var(--primary-soft);
   --color-highlight: var(--highlight);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
@@ -24,7 +27,7 @@
 }
 
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -44,10 +47,10 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ── Display headings — Inter Tight is pre-tightened, so only a hint more ── */
+/* ── Display headings — plain Inter needs optical tightening as it grows ── */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
@@ -57,8 +60,8 @@ p {
 }
 
 ::selection {
-  background: #99F0E1;
-  color: #05231D;
+  background: #D3E9DA;
+  color: #0A2E19;
 }
 
 .tabular-nums {
@@ -77,7 +80,7 @@ p {
   font-weight: 500;
   font-size: clamp(2.75rem, 1.4rem + 5vw, 5.25rem);
   line-height: 1.04;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
 }
 
 /* Section headlines */
@@ -86,7 +89,7 @@ p {
   font-weight: 600;
   font-size: clamp(1.875rem, 1.3rem + 2.2vw, 2.625rem);
   line-height: 1.12;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 /* Card & panel headlines */
@@ -106,14 +109,14 @@ p {
   font-weight: 400;
 }
 
-/* Section eyebrow — mono micro-label, uppercase */
+/* Section eyebrow — mono micro-label, uppercase; carries the accent */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--accent);
 }
 
 .font-display {
@@ -168,12 +171,12 @@ p {
   -webkit-backdrop-filter: blur(16px);
 }
 
-/* 1px gradient border (light surfaces) */
+/* 1px gradient border — whisper of the accent at the top edge, hairline grey below */
 .gradient-border {
   border: 1px solid transparent;
   background:
     linear-gradient(var(--surface), var(--surface)) padding-box,
-    linear-gradient(180deg, rgba(13, 148, 136, 0.35), rgba(13, 148, 136, 0.05) 45%, rgba(15, 36, 32, 0.10)) border-box;
+    linear-gradient(180deg, rgba(22, 101, 52, 0.14), rgba(22, 101, 52, 0.03) 40%, rgba(15, 23, 32, 0.08)) border-box;
 }
 
 /* Cursor-following spotlight (update --mx/--my from pointer events) */
@@ -190,7 +193,7 @@ p {
   transition: opacity 0.35s ease;
   background: radial-gradient(
     260px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(13, 148, 136, 0.10),
+    rgba(22, 101, 52, 0.09),
     transparent 70%
   );
 }

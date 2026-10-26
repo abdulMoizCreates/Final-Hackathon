@@ -98,11 +98,11 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="HCM Lite home">
             <div
               className="w-8 h-8 rounded-xl flex items-center justify-center"
-              style={{ background: "var(--primary)", boxShadow: "0 2px 8px rgba(13,148,136,0.3)" }}
+              style={{ background: "var(--accent)", boxShadow: "0 2px 8px rgba(22,101,52,0.3)" }}
               aria-hidden
             >
               <div className="w-4 h-0.5 rounded bg-white relative">
-                <div className="absolute w-2 h-2 rounded-full -top-[3px] left-1" style={{ background: "var(--highlight)" }} />
+                <div className="absolute w-2 h-2 rounded-full -top-[3px] left-1" style={{ background: "var(--accent-light)" }} />
               </div>
             </div>
             <span className="font-display font-semibold text-lg tracking-tight">HCM Lite</span>
@@ -114,7 +114,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium transition-colors duration-200 hover:text-[var(--ink)]"
+                className="text-sm font-medium transition-colors duration-200 hover:text-[var(--accent)]"
                 style={{ color: "var(--ink-3)" }}
               >
                 {link.label}
@@ -127,7 +127,7 @@ export default function Navbar() {
             {user ? (
               <Link
                 href="/dashboard"
-                className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 bg-primary-strong hover:bg-primary-deep text-white"
+                className="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-accent hover:bg-accent-hover active:bg-accent-hover text-white"
               >
                 Go to dashboard
               </Link>
@@ -135,14 +135,14 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="hidden sm:block px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 hover:text-[var(--ink)]"
+                  className="hidden sm:block px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 hover:text-[var(--accent)]"
                   style={{ color: "var(--ink-2)" }}
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/setup"
-                  className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 bg-primary-strong hover:bg-primary-deep text-white"
+                  className="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-accent hover:bg-accent-hover active:bg-accent-hover text-white"
                 >
                   Company setup
                 </Link>
@@ -195,7 +195,7 @@ export default function Navbar() {
               {user ? (
                 <Link
                   href="/dashboard"
-                  className="block w-full text-center px-5 py-3.5 rounded-xl text-sm font-semibold bg-primary-strong hover:bg-primary-deep text-white transition-colors"
+                  className="block w-full text-center px-5 py-3.5 rounded-xl text-sm font-semibold bg-accent hover:bg-accent-hover active:bg-accent-hover text-white transition-all"
                 >
                   Go to dashboard
                 </Link>
@@ -211,7 +211,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/setup"
-                    className="block w-full text-center px-5 py-3.5 rounded-xl text-sm font-semibold bg-primary-strong hover:bg-primary-deep text-white transition-colors"
+                    className="block w-full text-center px-5 py-3.5 rounded-xl text-sm font-semibold bg-accent hover:bg-accent-hover active:bg-accent-hover text-white transition-all"
                     onClick={() => setMenuOpen(false)}
                   >
                     Company setup

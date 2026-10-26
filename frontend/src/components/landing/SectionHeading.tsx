@@ -48,7 +48,7 @@ export default function SectionHeading({
       <span
         data-heading-part
         className="eyebrow block"
-        style={dark ? { color: "#34D399" } : undefined}
+        style={dark ? { color: "var(--accent-light)" } : undefined}
       >
         {eyebrow}
       </span>

@@ -30,6 +30,14 @@
   --primary-strong: #0F766E;
   --primary-deep: #115E59;
 
+  /* ── Accent — one teal-leaning green, three classifications ──
+     Hue 159.6° is the circular mean of every green this brand has used
+     (teals, emeralds, spruces, forest). Base + one lighter fade carry the
+     buttons (hover & click both fade); one tint carries dark surfaces. */
+  --accent: #147151;
+  --accent-hover: #188661;   /* hover & click — the green fades lighter */
+  --accent-light: #86EAC8;   /* the accent on dark moss surfaces */
+
   /* ── Dark moss surface (AI section, dark bands) ── */
   --moss-950: #050F0D;
   --moss-900: #091A17;
@@ -67,9 +75,9 @@
   --shadow-lift: 0 24px 48px -12px rgba(6, 20, 17, 0.18), 0 4px 12px -2px rgba(6, 20, 17, 0.08);
 
   /* ── Font stacks ──
-     Display & body: Inter Tight (cdnfonts, variable wght) — Inter as offline fallback
+     Display & body: Inter (cdnfonts) — system-ui as offline fallback
      Mono:           timestamps, ids, tabular data            */
-  --font-display: "Inter Tight", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter Tight", var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Inter", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
