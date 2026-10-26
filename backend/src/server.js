@@ -23,7 +23,17 @@ import { seedDemoUser } from "./utils/seed.js";
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || "http://localhost:3000", credentials: true }));
+// CORS: explicit allow-list; the browser's exact Origin is reflected for allowed origins only.
+// Requests are credentialed (frontend uses withCredentials), so wildcard origins are not allowed.
+// Trailing slashes are stripped: browsers never send one, and returning "https://host/" (as a
+// single-string origin would) fails the browser's exact-match against the request Origin.
+const allowedOrigins = [
+  process.env.CLIENT_ORIGIN?.replace(/\/+$/, ""),
+  "https://hcm-lite.vercel.app",
+  "http://localhost:3000",
+].filter(Boolean);
+
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
