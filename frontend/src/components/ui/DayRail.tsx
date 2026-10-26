@@ -112,12 +112,12 @@ export default function DayRail({
       )}
       {/* Labels (lg only) */}
       {!isSmall && (
-        <div className="flex justify-between mt-1">
-          <span className="text-[10px]" style={{ color: "var(--ink-3)" }}>
+        <div className="flex justify-between mt-1.5">
+          <span className="text-[11px] font-mono tabular-nums" style={{ color: "var(--ink-3)" }}>
             {checkInAt ? formatTime(checkInAt) : "Not checked in"}
           </span>
           {checkOutAt && (
-            <span className="text-[10px]" style={{ color: "var(--ink-3)" }}>
+            <span className="text-[11px] font-mono tabular-nums" style={{ color: "var(--ink-3)" }}>
               {formatTime(checkOutAt)}
             </span>
           )}

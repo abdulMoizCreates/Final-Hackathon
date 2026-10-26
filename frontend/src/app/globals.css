@@ -6,22 +6,126 @@
   --foreground: var(--ink);
 }
 
+/* Brand tokens exposed to Tailwind utilities (bg-primary-strong, text-ink-3, border-moss-700…) */
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-deep: var(--primary-deep);
+  --color-primary-soft: var(--primary-soft);
+  --color-highlight: var(--highlight);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+  --color-moss-950: var(--moss-950);
+  --color-moss-900: var(--moss-900);
+  --color-moss-800: var(--moss-800);
+  --color-moss-700: var(--moss-700);
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Headings — tight tracking for premium feel */
-h1, h2, h3 {
+/* ── Display headings — grotesque, optically tightened ── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
   letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* Modern paragraph measure control */
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: #99F0E1;
+  color: #05231D;
 }
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+/* ─────────────────────────────────────────────
+   Type scale — fluid, priority-based
+   Display sizes tighten tracking as they grow;
+   body copy relaxes into the grey ramp.
+   ───────────────────────────────────────────── */
+
+/* Hero headline — the loudest voice on the page */
+.display-xl {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 1.4rem + 5vw, 5.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+/* Section headlines */
+.display-lg {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.875rem, 1.3rem + 2.2vw, 2.625rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+/* Card & panel headlines */
+.display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+/* Lede — hero subcopy; quiet, airy, greyed */
+.lede {
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+/* Section eyebrow — mono micro-label, uppercase */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Big numerals in stats / KPI contexts */
+.stat-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 /* Premium card */
@@ -41,6 +145,74 @@ h1, h2, h3 {
 }
 .shadow-panel {
   box-shadow: var(--shadow-panel);
+}
+.shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+
+/* ── Landing textures & interaction surfaces ── */
+
+/* Dotted grid backdrop */
+.bg-dots {
+  background-image: radial-gradient(circle at 1px 1px, rgba(13, 23, 36, 0.08) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* Frosted surface */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* 1px gradient border (light surfaces) */
+.gradient-border {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(180deg, rgba(13, 148, 136, 0.35), rgba(13, 148, 136, 0.05) 45%, rgba(15, 36, 32, 0.10)) border-box;
+}
+
+/* Cursor-following spotlight (update --mx/--my from pointer events) */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(13, 148, 136, 0.10),
+    transparent 70%
+  );
+}
+.spotlight:hover::after,
+.spotlight:focus-within::after {
+  opacity: 1;
+}
+
+/* Soft edge masks for marquee rows */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Chat typing dots */
+@keyframes hcm-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-3px); opacity: 1; }
+}
+
+/* Kill decorative loops when the user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-ping {
+    animation: none;
+  }
 }
 
 /* Custom scrollbars */

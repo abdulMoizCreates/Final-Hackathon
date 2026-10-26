@@ -4,11 +4,12 @@
   --surface: #FFFFFF;
   --sunken: #F0F2F5;
 
-  /* ── Typography ── */
+  /* ── Typography (ink ramp — darkest → faint) ── */
   --ink: #0D1117;
   --ink-2: #24292F;
-  --ink-3: #57606A;
-  --ink-4: #8C959F;
+  --ink-3: #57606A;   /* body copy grey */
+  --ink-4: #8C959F;   /* meta & captions */
+  --ink-5: #B0BAC5;   /* footnotes, dividers text */
 
   /* ── Sidebar ── */
   --sidebar: #0B181A;
@@ -23,6 +24,17 @@
   --primary-light: #CCFBF1;
   --on-primary: #FFFFFF;
   --highlight: #F2B01E;
+  --highlight-soft: #FDEBC8;
+
+  /* AA-safe CTA teals — white text needs ≥ 4.5:1 contrast */
+  --primary-strong: #0F766E;
+  --primary-deep: #115E59;
+
+  /* ── Dark moss surface (AI section, dark bands) ── */
+  --moss-950: #050F0D;
+  --moss-900: #091A17;
+  --moss-800: #0F2420;
+  --moss-700: #173B34;
 
   /* ── KPI Card Accents ── */
   --kpi-mint-bg: #F0FDF9;
@@ -52,7 +64,13 @@
   --shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
   --shadow-panel: 0 8px 24px -4px rgba(0, 0, 0, 0.10), 0 2px 8px -2px rgba(0, 0, 0, 0.06);
   --shadow-soft: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-lift: 0 24px 48px -12px rgba(6, 20, 17, 0.18), 0 4px 12px -2px rgba(6, 20, 17, 0.08);
 
-  /* ── Font ── */
-  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* ── Font stacks ──
+     Display: geometric grotesque for headlines & brand
+     Sans:    neutral UI/body workhorse
+     Mono:    timestamps, ids, tabular data            */
+  --font-display: var(--font-grotesk), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), var(--font-grotesk), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }

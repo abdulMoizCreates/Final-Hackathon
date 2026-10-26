@@ -1,18 +1,29 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/api/QueryProvider";
 import { AuthProvider } from "@/context/AuthContext";
 import ChatWidget from "@/components/chat/ChatWidget";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/* Display — geometric grotesque for headlines & brand (Space Grotesk, 300–700 variable) */
+const grotesk = Space_Grotesk({
+  variable: "--font-grotesk",
   subsets: ["latin"],
+  display: "swap",
 });
 
+/* UI & body — the clean, neutral workhorse (Inter variable) */
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+/* Data — timestamps, ids, tabular figures */
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${grotesk.variable} ${inter.variable} ${geistMono.variable} antialiased`}
         style={{ background: "var(--canvas)" }}
       >
         <QueryProvider>
